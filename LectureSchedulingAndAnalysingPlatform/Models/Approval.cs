@@ -7,6 +7,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
 {
     public class Approval
     {
+
         public int Id { get; set; }
         public User ApprovedBy { get; set; }
         public bool Approved { get; set; }
