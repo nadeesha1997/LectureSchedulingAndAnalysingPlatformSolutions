@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Models
 {
-    public class Approval
+    public class Session
     {
-
         public int Id { get; set; }
-        public User ApprovedBy { get; set; }
-        public bool Approved { get; set; }
-        public string note { get; set; }
-        public Permission Permission { get; set; }
-
+        public  Subject Subject { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime dateTime { get; set; }
+        public Hall Hall { get; set; }
     }
 }
