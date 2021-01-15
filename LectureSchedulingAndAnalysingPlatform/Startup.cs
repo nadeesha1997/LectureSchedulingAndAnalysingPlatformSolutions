@@ -35,6 +35,7 @@ namespace LectureSchedulingAndAnalysingPlatform
             services.AddDbContext<UserDataContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("LectureScheduleDatabase"))
             );
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +56,10 @@ namespace LectureSchedulingAndAnalysingPlatform
                 //to have swagger on root
                 c.RoutePrefix = string.Empty;
             });
+            app.UseCors(options =>
+            options.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
