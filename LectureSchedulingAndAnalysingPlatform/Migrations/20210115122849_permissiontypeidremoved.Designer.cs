@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210115122849_permissiontypeidremoved")]
+    partial class permissiontypeidremoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,7 +100,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PermissionTypeId")
+                    b.Property<int>("PermissionTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -106,8 +108,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasIndex("BuildingId");
 
                     b.HasIndex("PermissionTypeId")
-                        .IsUnique()
-                        .HasFilter("[PermissionTypeId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Halls");
                 });
@@ -361,7 +362,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "PermissionType")
                         .WithOne("Hall")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId");
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Permission", b =>
