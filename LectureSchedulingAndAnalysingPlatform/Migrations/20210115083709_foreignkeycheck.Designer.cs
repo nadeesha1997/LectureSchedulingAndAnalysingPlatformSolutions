@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210115083709_foreignkeycheck")]
+    partial class foreignkeycheck
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,16 +100,17 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PermissionTypeId")
+                    b.Property<int>("PermissionTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuildingId");
+                    b.HasIndex("BuildingId")
+                        .IsUnique()
+                        .HasFilter("[BuildingId] IS NOT NULL");
 
                     b.HasIndex("PermissionTypeId")
-                        .IsUnique()
-                        .HasFilter("[PermissionTypeId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Halls");
                 });
@@ -356,12 +359,14 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Hall", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Building", "Building")
-                        .WithMany("Halls")
-                        .HasForeignKey("BuildingId");
-
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "PermissionType")
                         .WithOne("Hall")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId");
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "BuildingId");
+
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "Permission")
+                        .WithOne("Hall")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Permission", b =>

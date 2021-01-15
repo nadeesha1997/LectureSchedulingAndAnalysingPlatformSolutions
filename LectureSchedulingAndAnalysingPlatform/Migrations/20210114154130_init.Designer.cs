@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210114154130_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,11 +34,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int?>("ApprovedById")
                         .HasColumnType("int");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PermissionId")
+                    b.Property<int>("PermissionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -54,7 +56,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -92,22 +94,20 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BuildingId")
+                    b.Property<int>("BuildingId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PermissionTypeId")
+                    b.Property<int?>("PermissionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BuildingId");
 
-                    b.HasIndex("PermissionTypeId")
-                        .IsUnique()
-                        .HasFilter("[PermissionTypeId] IS NOT NULL");
+                    b.HasIndex("PermissionId");
 
                     b.ToTable("Halls");
                 });
@@ -131,13 +131,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<DateTime>("PermittedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SessionId")
+                    b.Property<int?>("SessionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SessionId")
-                        .IsUnique();
+                    b.HasIndex("SessionId");
 
                     b.ToTable("Permissions");
                 });
@@ -176,16 +175,16 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("HallId")
+                    b.Property<int?>("HallId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Permitted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ReserverId")
+                    b.Property<int?>("ReserverId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SessionId")
+                    b.Property<int?>("SessionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartTime")
@@ -193,14 +192,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HallId")
-                        .IsUnique();
+                    b.HasIndex("HallId");
 
-                    b.HasIndex("ReserverId")
-                        .IsUnique();
+                    b.HasIndex("ReserverId");
 
-                    b.HasIndex("SessionId")
-                        .IsUnique();
+                    b.HasIndex("SessionId");
 
                     b.ToTable("Reservations");
                 });
@@ -212,7 +208,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ReserverTypeId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
@@ -220,8 +216,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReserverTypeId")
-                        .IsUnique();
+                    b.HasIndex("TypeId");
 
                     b.HasIndex("UserId");
 
@@ -270,23 +265,21 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("HallId")
+                    b.Property<int>("HallId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("dateTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HallId")
-                        .IsUnique()
-                        .HasFilter("[HallId] IS NOT NULL");
+                    b.HasIndex("HallId");
 
                     b.HasIndex("SubjectId");
 
@@ -343,64 +336,60 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Permission", "Permission")
                         .WithMany("Approvals")
-                        .HasForeignKey("PermissionId");
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Building", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Department", "Department")
                         .WithMany("Buildings")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Hall", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Building", "Building")
                         .WithMany("Halls")
-                        .HasForeignKey("BuildingId");
+                        .HasForeignKey("BuildingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "PermissionType")
-                        .WithOne("Hall")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId");
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Permission", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Session", "Session")
-                        .WithOne("Permission")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Permission", "SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("SessionId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reservation", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Hall", "Hall")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("HallId");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "Reserver")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "ReserverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ReserverId");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Session", "Session")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "SessionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("SessionId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reserver", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.ReserverType", "Type")
-                        .WithOne("Reserver")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "ReserverTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("TypeId");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
                         .WithMany()
@@ -417,12 +406,16 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Session", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Hall", "Hall")
-                        .WithOne("Session")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Session", "HallId");
+                        .WithMany()
+                        .HasForeignKey("HallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Subject", "Subject")
                         .WithMany("Sessions")
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
