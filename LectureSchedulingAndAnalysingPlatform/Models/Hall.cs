@@ -16,13 +16,13 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
 
         [ForeignKey("Building")]
         public int? BuildingId { get; set; }
-        public Building Building { get; set; }
+        public Building? Building { get; set; }
 
         [ForeignKey("PermissionType")]
         public int? PermissionTypeId { get; set; }
-        public PermissionType PermissionType { get; set; }
+        public PermissionType? PermissionType { get; set; }
 
-        public virtual Session Session { get; set; }
-        public virtual Reservation Reservation { get; set; }
+        public virtual Session? Session { get; set; }
+        public virtual Reservation? Reservation { get; set; }
     }
 }

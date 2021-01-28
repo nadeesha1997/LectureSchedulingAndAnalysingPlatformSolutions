@@ -14,10 +14,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         //[ForeignKey("Reserver")]
         public int Id { get; set; }
         [ForeignKey("ReserverType")]
-        public int ReserverTypeId { get; set; }
-        public ReserverType Type { get; set; }
-        public User User { get; set; }
-        public virtual Reservation Reservation { get; set; }
+        public int? ReserverTypeId { get; set; }
+        public ReserverType? Type { get; set; }
+        [ForeignKey("User")]
+        public int? UserId { get; set; }
+        public User? User { get; set; }
+        public virtual Reservation? Reservation { get; set; }
 
     }
 }

@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    [Migration("20201103075648_models")]
-    partial class models
+    [Migration("20210128100326_null-allowed-virtual")]
+    partial class nullallowedvirtual
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -34,11 +34,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int?>("ApprovedById")
                         .HasColumnType("int");
 
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("PermissionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("note")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -100,14 +100,16 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PermissionId")
+                    b.Property<int?>("PermissionTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BuildingId");
 
-                    b.HasIndex("PermissionId");
+                    b.HasIndex("PermissionTypeId")
+                        .IsUnique()
+                        .HasFilter("[PermissionTypeId] IS NOT NULL");
 
                     b.ToTable("Halls");
                 });
@@ -118,6 +120,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Permitted")
                         .HasColumnType("bit");
@@ -131,12 +136,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int?>("SessionId")
                         .HasColumnType("int");
 
-                    b.Property<string>("notes")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SessionId");
+                    b.HasIndex("SessionId")
+                        .IsUnique()
+                        .HasFilter("[SessionId] IS NOT NULL");
 
                     b.ToTable("Permissions");
                 });
@@ -192,11 +196,17 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HallId");
+                    b.HasIndex("HallId")
+                        .IsUnique()
+                        .HasFilter("[HallId] IS NOT NULL");
 
-                    b.HasIndex("ReserverId");
+                    b.HasIndex("ReserverId")
+                        .IsUnique()
+                        .HasFilter("[ReserverId] IS NOT NULL");
 
-                    b.HasIndex("SessionId");
+                    b.HasIndex("SessionId")
+                        .IsUnique()
+                        .HasFilter("[SessionId] IS NOT NULL");
 
                     b.ToTable("Reservations");
                 });
@@ -208,7 +218,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int?>("ReserverTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
@@ -216,7 +226,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("ReserverTypeId")
+                        .IsUnique()
+                        .HasFilter("[ReserverTypeId] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
@@ -248,12 +260,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Roles");
                 });
@@ -265,6 +272,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("HallId")
                         .HasColumnType("int");
 
@@ -274,12 +284,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int?>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("dateTime")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("HallId");
+                    b.HasIndex("HallId")
+                        .IsUnique()
+                        .HasFilter("[HallId] IS NOT NULL");
 
                     b.HasIndex("SubjectId");
 
@@ -320,10 +329,15 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Regno")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -352,60 +366,60 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .WithMany("Halls")
                         .HasForeignKey("BuildingId");
 
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "Permission")
-                        .WithMany()
-                        .HasForeignKey("PermissionId");
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "PermissionType")
+                        .WithOne("Hall")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Permission", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Session", "Session")
-                        .WithMany()
-                        .HasForeignKey("SessionId");
+                        .WithOne("Permission")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Permission", "SessionId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reservation", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Hall", "Hall")
-                        .WithMany()
-                        .HasForeignKey("HallId");
+                        .WithOne("Reservation")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "HallId");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "Reserver")
-                        .WithMany()
-                        .HasForeignKey("ReserverId");
+                        .WithOne("Reservation")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "ReserverId");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Session", "Session")
-                        .WithMany()
-                        .HasForeignKey("SessionId");
+                        .WithOne("Reservation")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "SessionId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reserver", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.ReserverType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
+                        .WithOne("Reserver")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "ReserverTypeId");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Role", b =>
-                {
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Session", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Hall", "Hall")
-                        .WithMany()
-                        .HasForeignKey("HallId");
+                        .WithOne("Session")
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Session", "HallId");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Subject", "Subject")
                         .WithMany("Sessions")
                         .HasForeignKey("SubjectId");
+                });
+
+            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.User", b =>
+                {
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618
         }

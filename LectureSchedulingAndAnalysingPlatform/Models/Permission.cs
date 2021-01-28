@@ -13,8 +13,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public int Id { get; set; }
 
         [ForeignKey("Session")]
-        public int SessionId { get; set; }
-        public Session Session { get; set; }
+        public int? SessionId { get; set; }
+        public Session? Session { get; set; }
 
         public DateTime PermittedDate { get; set; }
         public DateTime PermittedTime { get; set; }
