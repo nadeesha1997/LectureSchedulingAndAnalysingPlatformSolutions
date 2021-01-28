@@ -12,6 +12,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         [Key]
         public int Id { get; set; }
         public string Type { get; set; }
-        public virtual Reserver Reserver { get; set; }
+        public virtual Reserver? Reserver { get; set; }
     }
 }

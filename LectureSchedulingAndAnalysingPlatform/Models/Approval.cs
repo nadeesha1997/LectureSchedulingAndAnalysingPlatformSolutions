@@ -17,7 +17,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
 
         [ForeignKey("Permission")]
         public int? PermissionId { get; set; }
-        public Permission Permission { get; set; }
+        public Permission? Permission { get; set; }
 
     }
 }

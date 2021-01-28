@@ -2,32 +2,32 @@
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
-    public partial class fix : Migration
+    public partial class manyhallstoonetype : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_Halls_BuildingId",
+                name: "IX_Halls_PermissionTypeId",
                 table: "Halls");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Halls_BuildingId",
+                name: "IX_Halls_PermissionTypeId",
                 table: "Halls",
-                column: "BuildingId");
+                column: "PermissionTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_Halls_BuildingId",
+                name: "IX_Halls_PermissionTypeId",
                 table: "Halls");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Halls_BuildingId",
+                name: "IX_Halls_PermissionTypeId",
                 table: "Halls",
-                column: "BuildingId",
+                column: "PermissionTypeId",
                 unique: true,
-                filter: "[BuildingId] IS NOT NULL");
+                filter: "[PermissionTypeId] IS NOT NULL");
         }
     }
 }

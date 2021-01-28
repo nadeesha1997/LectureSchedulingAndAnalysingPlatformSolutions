@@ -12,5 +12,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         [Key]
         public int Id { get; set; }
         public string Type { get; set; }
+        //another attribute as UserId in database
+        public ICollection<User> Users { get; set; }
     }
 }

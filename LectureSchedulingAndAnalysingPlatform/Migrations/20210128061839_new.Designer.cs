@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    [Migration("20210115122625_permissiontype")]
-    partial class permissiontype
+    [Migration("20210128061839_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,7 +100,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PermissionTypeId")
+                    b.Property<int?>("PermissionTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -108,7 +108,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasIndex("BuildingId");
 
                     b.HasIndex("PermissionTypeId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[PermissionTypeId] IS NOT NULL");
 
                     b.ToTable("Halls");
                 });
@@ -216,7 +217,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int>("ReserverTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -362,9 +363,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.PermissionType", "PermissionType")
                         .WithOne("Hall")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hall", "PermissionTypeId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Permission", b =>
@@ -407,7 +406,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Role", b =>

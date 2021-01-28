@@ -15,6 +15,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public string Password { get; set; }
         public string Regno { get; set; }
         public string Name { get; set; }
-        public ICollection<Role> Roles { get; set; }
+        //public ICollection<Role> Roles { get; set; }
+        public int? RoleId { get; set; }
+        public Role? Role { get; set; }
     }
 }

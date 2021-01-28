@@ -17,13 +17,13 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
 
         [ForeignKey("Subject")]
         public int? SubjectId { get; set; }
-        public Subject Subject { get; set; }
+        public Subject? Subject { get; set; }
 
         [ForeignKey("Hall")]
         public int? HallId { get; set; }
-        public Hall Hall { get; set; }
+        public Hall? Hall { get; set; }
 
-        public virtual Reservation Reservation { get; set; }
-        public virtual Permission Permission { get; set; }
+        public virtual Reservation? Reservation { get; set; }
+        public virtual Permission? Permission { get; set; }
     }
 }

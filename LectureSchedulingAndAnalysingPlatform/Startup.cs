@@ -30,7 +30,7 @@ namespace LectureSchedulingAndAnalysingPlatform
         {
             services.AddControllers();
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            //services.AddSwaggerGen();
             services.AddSingleton(typeof(IUserService), new UserService());
             services.AddDbContext<UserDataContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("LectureScheduleDatabase"))
@@ -46,16 +46,16 @@ namespace LectureSchedulingAndAnalysingPlatform
                 app.UseDeveloperExceptionPage();
             }
             // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
+            //app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+            /*app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 //to have swagger on root
                 c.RoutePrefix = string.Empty;
-            });
+            });*/
             app.UseCors(options =>
             options.AllowAnyOrigin()
             .AllowAnyMethod()

@@ -2,7 +2,7 @@
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
-    public partial class permissiontype : Migration
+    public partial class nullallowedvirtual : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

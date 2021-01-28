@@ -17,16 +17,16 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public bool Permitted { get; set; }
 
         [ForeignKey("Reserver")]
-        public int ReserverId { get; set; }
-        public Reserver Reserver { get; set; }
+        public int? ReserverId { get; set; }
+        public Reserver? Reserver { get; set; }
 
         [ForeignKey("Hall")]
-        public int HallId { get; set; }
-        public Hall Hall { get; set; }
+        public int? HallId { get; set; }
+        public Hall? Hall { get; set; }
 
         [ForeignKey("Session")]
-        public int SessionId { get; set; }
-        public Session Session { get; set; }
+        public int? SessionId { get; set; }
+        public Session? Session { get; set; }
 
     }
 }

@@ -3,25 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
-    public partial class models : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "Users",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Password",
-                table: "Users",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Regno",
-                table: "Users",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Departments",
                 columns: table => new
@@ -65,26 +50,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Roles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Subjects",
                 columns: table => new
                 {
@@ -96,6 +61,22 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Regno = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,20 +105,40 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeId = table.Column<int>(nullable: true),
+                    ReserverTypeId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reservers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservers_ReserverTypes_TypeId",
-                        column: x => x.TypeId,
+                        name: "FK_Reservers_ReserverTypes_ReserverTypeId",
+                        column: x => x.ReserverTypeId,
                         principalTable: "ReserverTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Roles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -152,7 +153,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     BuildingId = table.Column<int>(nullable: true),
-                    PermissionId = table.Column<int>(nullable: true)
+                    PermissionTypeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -164,8 +165,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Halls_PermissionTypes_PermissionId",
-                        column: x => x.PermissionId,
+                        name: "FK_Halls_PermissionTypes_PermissionTypeId",
+                        column: x => x.PermissionTypeId,
                         principalTable: "PermissionTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -177,9 +178,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SubjectId = table.Column<int>(nullable: true),
                     StartTime = table.Column<DateTime>(nullable: false),
-                    dateTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    SubjectId = table.Column<int>(nullable: true),
                     HallId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -205,11 +206,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SessionId = table.Column<int>(nullable: true),
+                    SessionId = table.Column<int>(nullable: false),
                     PermittedDate = table.Column<DateTime>(nullable: false),
                     PermittedTime = table.Column<DateTime>(nullable: false),
                     Permitted = table.Column<bool>(nullable: false),
-                    notes = table.Column<string>(nullable: true)
+                    Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -219,7 +220,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         column: x => x.SessionId,
                         principalTable: "Sessions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,13 +229,13 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ReserverId = table.Column<int>(nullable: true),
-                    HallId = table.Column<int>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     StartTime = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
-                    SessionId = table.Column<int>(nullable: true),
-                    Permitted = table.Column<bool>(nullable: false)
+                    Permitted = table.Column<bool>(nullable: false),
+                    ReserverId = table.Column<int>(nullable: false),
+                    HallId = table.Column<int>(nullable: false),
+                    SessionId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -244,19 +245,19 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         column: x => x.HallId,
                         principalTable: "Halls",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Reservers_ReserverId",
                         column: x => x.ReserverId,
                         principalTable: "Reservers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Sessions_SessionId",
                         column: x => x.SessionId,
                         principalTable: "Sessions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -267,7 +268,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ApprovedById = table.Column<int>(nullable: true),
                     Approved = table.Column<bool>(nullable: false),
-                    note = table.Column<string>(nullable: true),
+                    Note = table.Column<string>(nullable: true),
                     PermissionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -308,34 +309,41 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 column: "BuildingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Halls_PermissionId",
+                name: "IX_Halls_PermissionTypeId",
                 table: "Halls",
-                column: "PermissionId");
+                column: "PermissionTypeId",
+                unique: true,
+                filter: "[PermissionTypeId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_SessionId",
                 table: "Permissions",
-                column: "SessionId");
+                column: "SessionId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_HallId",
                 table: "Reservations",
-                column: "HallId");
+                column: "HallId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_ReserverId",
                 table: "Reservations",
-                column: "ReserverId");
+                column: "ReserverId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_SessionId",
                 table: "Reservations",
-                column: "SessionId");
+                column: "SessionId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservers_TypeId",
+                name: "IX_Reservers_ReserverTypeId",
                 table: "Reservers",
-                column: "TypeId");
+                column: "ReserverTypeId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservers_UserId",
@@ -350,7 +358,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_HallId",
                 table: "Sessions",
-                column: "HallId");
+                column: "HallId",
+                unique: true,
+                filter: "[HallId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_SubjectId",
@@ -382,6 +392,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 name: "ReserverTypes");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Halls");
 
             migrationBuilder.DropTable(
@@ -395,18 +408,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
             migrationBuilder.DropTable(
                 name: "Departments");
-
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Password",
-                table: "Users");
-
-            migrationBuilder.DropColumn(
-                name: "Regno",
-                table: "Users");
         }
     }
 }
