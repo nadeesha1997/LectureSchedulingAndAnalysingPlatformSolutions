@@ -11,9 +11,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
     {
         [Key]
         public int Id { get; set; }
-        public User ApprovedBy { get; set; }
         public bool Approved { get; set; }
         public string Note { get; set; }
+
+        [ForeignKey("User")]
+        public int? ApprovedById { get; set; }
+        public User ApprovedBy { get; set; }
 
         [ForeignKey("Permission")]
         public int? PermissionId { get; set; }
