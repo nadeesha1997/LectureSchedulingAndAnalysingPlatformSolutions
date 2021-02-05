@@ -87,7 +87,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         {
             _context.A.Add(approval);
             await _context.SaveChangesAsync();
-
             return RedirectToAction("GetApproval", new { id = approval.Id });
 
         }
