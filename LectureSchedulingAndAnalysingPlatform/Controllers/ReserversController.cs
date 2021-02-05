@@ -32,7 +32,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Reserver>> GetReserver(int id)
         {
-            var reserver = await _context.Reservers.FindAsync(id);
+            var reserver = await _context.Reservers
+                .Include(i => i.Type)
+                .Include(i => User)
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
 
             if (reserver == null)
             {
@@ -83,7 +87,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _context.Reservers.Add(reserver);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReserver", new { id = reserver.Id }, reserver);
+            return RedirectToAction("GetReserver", new { id = reserver.Id });
         }
 
         // DELETE: api/Reservers/5
