@@ -32,7 +32,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Building>> GetBuilding(int id)
         {
-            var building = await _context.Buildings.FindAsync(id);
+            var building = await _context.Buildings
+                .Include(i => i.Department)
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
 
             if (building == null)
             {
@@ -83,7 +86,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _context.Buildings.Add(building);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBuilding", new { id = building.Id }, building);
+            return RedirectToAction("GetBuilding", new { id = building.Id });
         }
 
         // DELETE: api/Buildings/5

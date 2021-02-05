@@ -32,7 +32,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Permission>> GetPermission(int id)
         {
-            var permission = await _context.Permissions.FindAsync(id);
+            var permission = await _context.Permissions
+                .Include(i => i.Session)
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
 
             if (permission == null)
             {
@@ -83,7 +86,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _context.Permissions.Add(permission);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPermission", new { id = permission.Id }, permission);
+            return RedirectToAction("GetPermission", new { id = permission.Id });
         }
 
         // DELETE: api/Permissions/5

@@ -32,7 +32,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Hall>> GetHall(int id)
         {
-            var hall = await _context.Halls.FindAsync(id);
+            var hall = await _context.Halls
+                .Include(i => i.Building)
+                .Include(i=>i.PermissionType)
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
 
             if (hall == null)
             {
@@ -83,7 +87,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _context.Halls.Add(hall);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetHall", new { id = hall.Id }, hall);
+            return RedirectToAction("GetHall", new { id = hall.Id });
         }
 
         // DELETE: api/Halls/5
