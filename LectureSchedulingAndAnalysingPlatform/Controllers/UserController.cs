@@ -32,7 +32,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+                .Include(i => i.Role)
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -83,7 +86,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return RedirectToAction("GetUser", new { id = user.Id });
         }
 
         // DELETE: api/Users/5

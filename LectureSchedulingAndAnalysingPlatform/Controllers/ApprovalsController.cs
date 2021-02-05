@@ -32,7 +32,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Approval>> GetApproval(int id)
         {
-            var approval = await _context.A.FindAsync(id);
+            var approval = await _context.A
+                .Include(i => i.ApprovedBy)
+                .Include(i => i.Permission)
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
 
             if (approval == null)
             {
@@ -83,7 +87,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _context.A.Add(approval);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetApproval", new { id = approval.Id }, approval);
+            return RedirectToAction("GetApproval", new { id = approval.Id });
         }
 
         // DELETE: api/Approvals/5
