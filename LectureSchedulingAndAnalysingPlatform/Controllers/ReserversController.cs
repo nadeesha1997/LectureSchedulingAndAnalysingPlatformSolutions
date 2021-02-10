@@ -34,7 +34,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         {
             var reserver = await _context.Reservers
                 .Include(i => i.Type)
-                .Include(i => User)
+                .Include(i=>i.User)
+
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 

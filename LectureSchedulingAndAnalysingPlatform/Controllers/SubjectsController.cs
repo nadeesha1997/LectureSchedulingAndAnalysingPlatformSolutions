@@ -1,64 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LectureSchedulingAndAnalysingPlatform.Data;
+using LectureSchedulingAndAnalysingPlatform.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LectureSchedulingAndAnalysingPlatform.Data;
-using LectureSchedulingAndAnalysingPlatform.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HallsController : ControllerBase
+    public class SubjectsController : ControllerBase
     {
         private readonly UserDataContext _context;
 
-        public HallsController(UserDataContext context)
+        public SubjectsController(UserDataContext context)
         {
             _context = context;
         }
 
-        // GET: api/Halls
+        // GET: api/Approvals
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hall>>> GetHalls()
+        public async Task<ActionResult<IEnumerable<Subject>>> GetSubject()
         {
-            return await _context.Halls.ToListAsync();
+
+            return await _context.Subjects.ToListAsync();
         }
 
-        // GET: api/Halls/5
+        // GET: api/Approvals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hall>> GetHall(int id)
+        public async Task<ActionResult<Subject>> GetSubject(int id)
         {
-            var hall = await _context.Halls
-                .Include(i => i.Building)
-                .Include(i=>i.PermissionType)
-
+            var approval = await _context.Subjects
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (hall == null)
+            if (approval == null)
             {
                 return NotFound();
             }
 
-            return hall;
+            return approval;
         }
 
-        // PUT: api/Halls/5
+        // PUT: api/Approvals/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHall(int id, Hall hall)
+        public async Task<IActionResult> PutSubject(int id, Subject subject)
         {
-            if (id != hall.Id)
+            if (id != subject.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hall).State = EntityState.Modified;
+            _context.Entry(subject).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +64,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!HallExists(id))
+                if (!SubjectExists(id))
                 {
                     return NotFound();
                 }
@@ -79,37 +77,37 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return NoContent();
         }
 
-        // POST: api/Halls
+        // POST: api/Approvals
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Hall>> PostHall(Hall hall)
+        public async Task<ActionResult<Subject>> PostSubject(Subject subject)
         {
-            _context.Halls.Add(hall);
+            _context.Subjects.Add(subject);
             await _context.SaveChangesAsync();
+            return RedirectToAction("GetSubject", new { id = subject.Id });
 
-            return RedirectToAction("GetHall", new { id = hall.Id });
         }
 
-        // DELETE: api/Halls/5
+        // DELETE: api/Approvals/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Hall>> DeleteHall(int id)
+        public async Task<ActionResult<Subject>> DeleteSubject(int id)
         {
-            var hall = await _context.Halls.FindAsync(id);
-            if (hall == null)
+            var subject = await _context.Subjects.FindAsync(id);
+            if (subject == null)
             {
                 return NotFound();
             }
 
-            _context.Halls.Remove(hall);
+            _context.Subjects.Remove(subject);
             await _context.SaveChangesAsync();
 
-            return hall;
+            return subject;
         }
 
-        private bool HallExists(int id)
+        private bool SubjectExists(int id)
         {
-            return _context.Halls.Any(e => e.Id == id);
+            return _context.Subjects.Any(e => e.Id == id);
         }
     }
 }

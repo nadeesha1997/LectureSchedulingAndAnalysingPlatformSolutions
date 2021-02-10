@@ -1,64 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LectureSchedulingAndAnalysingPlatform.Data;
+using LectureSchedulingAndAnalysingPlatform.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LectureSchedulingAndAnalysingPlatform.Data;
-using LectureSchedulingAndAnalysingPlatform.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HallsController : ControllerBase
+    public class SessionsController : ControllerBase
     {
         private readonly UserDataContext _context;
 
-        public HallsController(UserDataContext context)
+        public SessionsController(UserDataContext context)
         {
             _context = context;
         }
 
-        // GET: api/Halls
+        // GET: api/Approvals
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hall>>> GetHalls()
+        public async Task<ActionResult<IEnumerable<Session>>> GetSession()
         {
-            return await _context.Halls.ToListAsync();
+
+            return await _context.Sessions.ToListAsync();
         }
 
-        // GET: api/Halls/5
+        // GET: api/Approvals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hall>> GetHall(int id)
+        public async Task<ActionResult<Session>> GetSession(int id)
         {
-            var hall = await _context.Halls
-                .Include(i => i.Building)
-                .Include(i=>i.PermissionType)
-
+            var session = await _context.Sessions
+                .Include(i=>i.Subject)
+                .Include(i=>i.Hall)
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (hall == null)
+            if (session == null)
             {
                 return NotFound();
             }
 
-            return hall;
+            return session;
         }
 
-        // PUT: api/Halls/5
+        // PUT: api/Approvals/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHall(int id, Hall hall)
+        public async Task<IActionResult> PutSession(int id, Session session)
         {
-            if (id != hall.Id)
+            if (id != session.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hall).State = EntityState.Modified;
+            _context.Entry(session).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!HallExists(id))
+                if (!SessionExists(id))
                 {
                     return NotFound();
                 }
@@ -79,37 +79,37 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return NoContent();
         }
 
-        // POST: api/Halls
+        // POST: api/Approvals
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Hall>> PostHall(Hall hall)
+        public async Task<ActionResult<Session>> PostSession(Session session)
         {
-            _context.Halls.Add(hall);
+            _context.Sessions.Add(session);
             await _context.SaveChangesAsync();
+            return RedirectToAction("GetSession", new { id = session.Id });
 
-            return RedirectToAction("GetHall", new { id = hall.Id });
         }
 
-        // DELETE: api/Halls/5
+        // DELETE: api/Approvals/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Hall>> DeleteHall(int id)
+        public async Task<ActionResult<Session>> DeleteSession(int id)
         {
-            var hall = await _context.Halls.FindAsync(id);
-            if (hall == null)
+            var session = await _context.Sessions.FindAsync(id);
+            if (session == null)
             {
                 return NotFound();
             }
 
-            _context.Halls.Remove(hall);
+            _context.Sessions.Remove(session);
             await _context.SaveChangesAsync();
 
-            return hall;
+            return session;
         }
 
-        private bool HallExists(int id)
+        private bool SessionExists(int id)
         {
-            return _context.Halls.Any(e => e.Id == id);
+            return _context.Sessions.Any(e => e.Id == id);
         }
     }
 }

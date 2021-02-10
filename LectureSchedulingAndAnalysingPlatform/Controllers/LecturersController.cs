@@ -1,64 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LectureSchedulingAndAnalysingPlatform.Data;
+using LectureSchedulingAndAnalysingPlatform.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using LectureSchedulingAndAnalysingPlatform.Data;
-using LectureSchedulingAndAnalysingPlatform.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HallsController : ControllerBase
+    public class LecturersController : ControllerBase
     {
         private readonly UserDataContext _context;
 
-        public HallsController(UserDataContext context)
+        public LecturersController(UserDataContext context)
         {
             _context = context;
         }
 
-        // GET: api/Halls
+        // GET: api/Buildings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hall>>> GetHalls()
+        public async Task<ActionResult<IEnumerable<Lecturer>>> GetLecturers()
         {
-            return await _context.Halls.ToListAsync();
+            return await _context.Lecturers.ToListAsync();
         }
 
-        // GET: api/Halls/5
+        // GET: api/Buildings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hall>> GetHall(int id)
+        public async Task<ActionResult<Lecturer>> GetLecturer(int id)
         {
-            var hall = await _context.Halls
-                .Include(i => i.Building)
-                .Include(i=>i.PermissionType)
-
+            var lecturer = await _context.Lecturers
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (hall == null)
+            if (lecturer == null)
             {
                 return NotFound();
             }
 
-            return hall;
+            return lecturer;
         }
 
-        // PUT: api/Halls/5
+        // PUT: api/Buildings/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHall(int id, Hall hall)
+        public async Task<IActionResult> PutLecturer(int id, Lecturer lecturer)
         {
-            if (id != hall.Id)
+            if (id != lecturer.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hall).State = EntityState.Modified;
+            _context.Entry(lecturer).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +63,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!HallExists(id))
+                if (!LecturerExists(id))
                 {
                     return NotFound();
                 }
@@ -79,37 +76,38 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return NoContent();
         }
 
-        // POST: api/Halls
+        // POST: api/Buildings
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Hall>> PostHall(Hall hall)
+        public async Task<ActionResult<Lecturer>> PostLecturer(Lecturer lecturer)
         {
-            _context.Halls.Add(hall);
+            _context.Lecturers.Add(lecturer);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("GetHall", new { id = hall.Id });
+            return RedirectToAction("GetLecturer", new { id = lecturer.Id });
         }
 
-        // DELETE: api/Halls/5
+        // DELETE: api/Buildings/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Hall>> DeleteHall(int id)
+        public async Task<ActionResult<Lecturer>> DeleteLecturer(int id)
         {
-            var hall = await _context.Halls.FindAsync(id);
-            if (hall == null)
+            var lecturer = await _context.Lecturers.FindAsync(id);
+            if (lecturer == null)
             {
                 return NotFound();
             }
 
-            _context.Halls.Remove(hall);
+            _context.Lecturers.Remove(lecturer);
             await _context.SaveChangesAsync();
 
-            return hall;
+            return lecturer;
         }
 
-        private bool HallExists(int id)
+        private bool LecturerExists(int id)
         {
-            return _context.Halls.Any(e => e.Id == id);
+            return _context.Lecturers.Any(e => e.Id == id);
         }
     }
 }
+
