@@ -102,6 +102,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         public void Post([FromBody] Approval approval)
         {
             _approvalService.Add(approval);
+
         }
         //public async Task<ActionResult<Approval>> PostApproval(Approval approval)
         //{

@@ -36,6 +36,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
                 .Include(i => i.Reserver)
                 .Include(i=>i.Hall)
                 .Include(i=>i.Session)
+
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 

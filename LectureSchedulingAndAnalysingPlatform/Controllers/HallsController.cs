@@ -35,6 +35,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             var hall = await _context.Halls
                 .Include(i => i.Building)
                 .Include(i=>i.PermissionType)
+
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 
