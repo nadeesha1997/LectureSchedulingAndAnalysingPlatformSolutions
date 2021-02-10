@@ -18,6 +18,8 @@ namespace LectureSchedulingAndAnalysingPlatform
 {
     public class Startup
     {
+        private UserDataContext context;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +34,8 @@ namespace LectureSchedulingAndAnalysingPlatform
             // Register the Swagger generator, defining 1 or more Swagger documents
             //services.AddSwaggerGen();
             services.AddSingleton(typeof(IUserService), new UserService());
+            //services.AddSingleton(typeof(IApprovalService), new ApprovalService( context));
+            services.AddScoped<IApprovalService, ApprovalService>();
             services.AddDbContext<UserDataContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("LectureScheduleDatabase"))
             );

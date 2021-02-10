@@ -26,5 +26,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Lecturer> Lecturers { get; set; }
     }
 }

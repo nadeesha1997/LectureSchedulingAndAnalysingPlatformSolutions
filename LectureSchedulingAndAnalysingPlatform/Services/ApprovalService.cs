@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LectureSchedulingAndAnalysingPlatform.Services
 {
@@ -17,34 +18,62 @@ namespace LectureSchedulingAndAnalysingPlatform.Services
         {
             _context = context;
         }
-        public void Add(Approval approval)
+
+        public void Add([FromBody]Approval approval)
         {
-            throw new NotImplementedException();
+            _context.A.Add(approval);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _context.A.Remove(GetOne(id));
+            _context.SaveChanges();
         }
 
-        public Approval Get(int id)
+        ////public async task<actionresult<approval>> get(int id)
+        ////{
+        ////    var approval = await _context.a
+        ////        .include(i => i.approvedby)
+        ////        .include(i => i.permission)
+        ////        .where(i => i.id == id)
+        ////        .firstordefaultasync();
+
+        ////    if (approval == null)
+        ////    {
+        ////        return notfound();
+        ////    }
+
+        ////    return approval;
+        ////}
+
+        public Approval GetOne(int id)
         {
-            throw new NotImplementedException();
+            return _context.A
+                .Include(i => i.Permission)
+                .Include(i => i.ApprovedBy)
+                .FirstOrDefault(i => i.Id == id);
         }
 
         /*[HttpGet()]
         [ProducesResponseType(StatusCodes.Status200OK, Type =typeof(Approval))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         */
-        
+
+        //public async Task<ActionResult<IEnumerable<Approval>>> GetAll()
+        //{
+        //    return await _context.A.ToListAsync();
+        //}
+
         public List<Approval> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.A.Include(i=>i.ApprovedBy).Include(i=>i.Permission).ToList();
         }
 
         public void Update(int id, Approval approval)
         {
-            throw new NotImplementedException();
+            _context.A.Update(approval);
+            _context.SaveChanges();
         }
     }
 }
