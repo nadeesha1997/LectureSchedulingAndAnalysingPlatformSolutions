@@ -36,6 +36,7 @@ namespace LectureSchedulingAndAnalysingPlatform
             services.AddSingleton(typeof(IUserService), new UserService());
             //services.AddSingleton(typeof(IApprovalService), new ApprovalService( context));
             services.AddScoped<IApprovalService, ApprovalService>();
+            services.AddScoped<ISubjectService, SubjectService>();
             services.AddDbContext<UserDataContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("LectureScheduleDatabase"))
             );
