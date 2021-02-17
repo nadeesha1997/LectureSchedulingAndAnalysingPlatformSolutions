@@ -33,7 +33,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         public async Task<ActionResult<Reserver>> GetReserver(int id)
         {
             var reserver = await _context.Reservers
-                .Include(i => i.Type)
                 .Include(i=>i.User)
 
                 .Where(i => i.Id == id)

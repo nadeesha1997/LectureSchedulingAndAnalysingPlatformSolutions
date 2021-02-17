@@ -32,6 +32,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int?>("ApprovedById")
                         .HasColumnType("int");
 
+                    b.Property<string>("ApprovedById1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
@@ -40,7 +43,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApprovedById");
+                    b.HasIndex("ApprovedById1");
 
                     b.HasIndex("PermissionId");
 
@@ -241,51 +244,14 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ReserverTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReserverTypeId")
-                        .IsUnique()
-                        .HasFilter("[ReserverTypeId] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Reservers");
-                });
-
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.ReserverType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReserverTypes");
-                });
-
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Session", b =>
@@ -331,45 +297,173 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SubjectUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SubjectUserId");
 
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.User", b =>
+            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.SubjectUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                    b.ToTable("SubjectUser");
+                });
 
-                    b.Property<string>("Regno")
-                        .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RegNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Semester")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectUserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("SubjectUserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a80fd1e1-0b64-4ef8-b971-c1e4e84f9c29",
+                            ConcurrencyStamp = "8f287ff5-45ed-4b60-80ab-d205031a7b0e",
+                            Name = "Teacher",
+                            NormalizedName = "TEACHER"
+                        },
+                        new
+                        {
+                            Id = "0fc0f64a-fe36-412c-b5aa-31937e643767",
+                            ConcurrencyStamp = "a65a9f59-4187-4a04-aeb2-99226a595487",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        },
+                        new
+                        {
+                            Id = "04194912-8237-4502-be17-1fd57d1530a1",
+                            ConcurrencyStamp = "3df8a56f-7b94-4981-8920-1b7f54fd6cba",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "e7a86abd-fc20-4410-af19-5005c57bdaa4",
+                            ConcurrencyStamp = "b7f2c367-5807-4206-bcc5-1ba9a8f66f00",
+                            Name = "AR",
+                            NormalizedName = "AR"
+                        },
+                        new
+                        {
+                            Id = "9fa5edea-8007-4df7-9cf0-74d2f937ea27",
+                            ConcurrencyStamp = "e13dfabc-629a-456a-8439-1fc82bcef616",
+                            Name = "HOD",
+                            NormalizedName = "HOD"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("IdentityUserRole<string>");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Approval", b =>
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "ApprovedBy")
                         .WithMany()
-                        .HasForeignKey("ApprovedById");
+                        .HasForeignKey("ApprovedById1");
 
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Permission", "Permission")
                         .WithMany("Approvals")
@@ -418,10 +512,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reserver", b =>
                 {
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.ReserverType", "Type")
-                        .WithOne("Reserver")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "ReserverTypeId");
-
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -438,11 +528,22 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasForeignKey("SubjectId");
                 });
 
+            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Subject", b =>
+                {
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.SubjectUser", null)
+                        .WithMany("Subjects")
+                        .HasForeignKey("SubjectUserId");
+                });
+
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.User", b =>
                 {
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Role", "Role")
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Department", "Department")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.SubjectUser", "SubjectUser")
+                        .WithMany("Users")
+                        .HasForeignKey("SubjectUserId");
                 });
 #pragma warning restore 612, 618
         }

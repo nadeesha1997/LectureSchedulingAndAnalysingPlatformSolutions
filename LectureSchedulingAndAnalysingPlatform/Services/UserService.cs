@@ -13,8 +13,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Services
         public static List<User> loadDB()
         {
             List<User> temp = new List<User>();
-            temp.Add(new User { Id = 1, Username = "user1"});
-            temp.Add(new User { Id = 2, Username = "user2"});
+            temp.Add(new User {});
+            temp.Add(new User {});
             return temp;
         }
 
@@ -25,7 +25,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Services
 
         public User Get(int id)
         {
-            return Database.Find(user => user.Id == id);
+            return Database.Find(user => user.Semester == id);
         }
 
         public void Add(User newUser)
@@ -35,14 +35,14 @@ namespace LectureSchedulingAndAnalysingPlatform.Services
 
         public void Update(int id, User user)
         {
-            Database.Remove(Database.Find(user => user.Id == id));
-            user.Id = id;
+            Database.Remove(Database.Find(user => user.Semester == id));
+            user.Semester = id;
             Database.Add(user);
         }
 
         public void Delete(int id)
         {
-            Database.Remove(Database.Find(user => user.Id == id));
+            Database.Remove(Database.Find(user => user.Semester == id));
         }
     }
 }
