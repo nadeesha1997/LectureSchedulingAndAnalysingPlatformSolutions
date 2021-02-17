@@ -15,7 +15,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
     [ApiController]
     public class ApprovalsController : ControllerBase
     {
-        private readonly UserDataContext _context;
         private IApprovalService _approvalService;
 
         //public ApprovalsController(UserDataContext context)

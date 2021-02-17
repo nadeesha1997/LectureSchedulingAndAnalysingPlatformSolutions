@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Models
 {
-    public class User
+    public class User:IdentityUser
     {
-        [Key]
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Regno { get; set; }
-        public string Name { get; set; }
-        //public ICollection<Role> Roles { get; set; }
-        public int? RoleId { get; set; }
-        public Role? Role { get; set; }
+        public string RegNo { get; set; }
+        //public string LecturerID { get; set; }
+        //public string StudentID { get; set; }
+        //public string EmpoyeeID { get; set; }
+        public string FullName { get; set; }
+        public int Semester { get; set; }
+        public Department? Department { get; set; }
+        public SubjectUser? SubjectUser { get; set; }
+
     }
 }

@@ -13,5 +13,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public string Name { get; set; }
         public string Code { get; set; }
         public ICollection<Building> Buildings { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }
