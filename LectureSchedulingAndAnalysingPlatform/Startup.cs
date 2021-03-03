@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LectureSchedulingAndAnalysingPlatform.Data;
 using LectureSchedulingAndAnalysingPlatform.Services;
+using LectureSchedulingAndAnalysingPlatform.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace LectureSchedulingAndAnalysingPlatform
             services.AddSingleton(typeof(IUserService), new UserService());
             //services.AddSingleton(typeof(IApprovalService), new ApprovalService( context));
             services.AddScoped<IApprovalService, ApprovalService>();
+            services.AddTransient<IMailService, Services.MailService>();
             services.AddScoped<ISubjectService, SubjectService>();
             services.AddDbContext<UserDataContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("LectureScheduleDatabase"))
@@ -43,6 +45,7 @@ namespace LectureSchedulingAndAnalysingPlatform
             services.AddCors();
             services.AddControllers().AddNewtonsoftJson(x =>
               x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
