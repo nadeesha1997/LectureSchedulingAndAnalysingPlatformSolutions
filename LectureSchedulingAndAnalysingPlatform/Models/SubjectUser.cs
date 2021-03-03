@@ -10,7 +10,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
     {
         [Key]
         public int Id { get; set; }
-        public ICollection<Subject> Subjects { get; set; }
-        public ICollection<User> Users { get; set; }
+        public string UserId { get; set; }
+        public User User { get; set; }
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
+
     }
 }
