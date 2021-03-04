@@ -28,7 +28,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _userManager = userManager;
             _jwtSettings = configuration.GetSection("JwtSettings");
         }
-        [HttpPost("registerstudent")]
+        [HttpPost("register/student")]
         public async Task<ActionResult> RegisterStudent(UserRegistrationModel userModel)
         {
             var user = _mapper.Map<User>(userModel);
@@ -40,7 +40,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "Student");
             return StatusCode(201);
         }
-        [HttpPost("registerar")]
+        [HttpPost("register/ar")]
         public async Task<ActionResult> RegisterAR(UserRegistrationModel userModel)
         {
             var user = _mapper.Map<User>(userModel);
@@ -52,7 +52,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "AR");
             return StatusCode(201);
         }
-        [HttpPost("registerteacher")]
+        [HttpPost("register/teacher")]
         public async Task<ActionResult> RegisterTeacher(UserRegistrationModel userModel)
         {
             var user = _mapper.Map<User>(userModel);
@@ -64,7 +64,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "Teacher");
             return StatusCode(201);
         }
-        [HttpPost("registeradmin")]
+        [HttpPost("register/admin")]
         public async Task<ActionResult> RegisterAdmin(UserRegistrationModel userModel)
         {
             var user = _mapper.Map<User>(userModel);
@@ -87,7 +87,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
                 var claims = GetClaims(user);
                 var tokenOptions = GenerateTokenOptions(signingCredentials, await claims);
                 var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(token);
+                ////return Ok(token);
+                return Ok(new
+                {
+                    UserDetails = user,
+                    accessToken = token
+                });
             }
             return Unauthorized("Invalid Authentication");
         }
