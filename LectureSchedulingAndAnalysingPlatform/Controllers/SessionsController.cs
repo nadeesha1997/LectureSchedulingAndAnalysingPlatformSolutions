@@ -47,6 +47,30 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return session;
         }
 
+        //[HttpGet("{para}/{para2}")]
+        //public async Task<ActionResult<Session>> GetSessionByPara(string para, string para2)
+        //{
+        //    if (para == "user")
+        //    {
+        //        var session = await _context.Sessions
+        //        .Include(i => i.Subject)
+        //        .Include(i => i.Hall)
+        //        .Where(i => i. == para2)
+        //        .FirstOrDefaultAsync();
+        //    }
+        //    var session = await _context.Sessions
+        //        .Include(i => i.Subject)
+        //        .Include(i => i.Hall)
+        //        .Where(i => i.Id == id)
+        //        .FirstOrDefaultAsync();
+
+        //    if (session == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return session;
+        //}
         // PUT: api/Approvals/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

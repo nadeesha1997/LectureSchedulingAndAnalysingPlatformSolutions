@@ -24,6 +24,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public Department? Department { get; set; }
         //public SubjectUser? SubjectUser { get; set; }
         public virtual ICollection<SubjectUser> SubjectUsers { get; set; }
+        public virtual ICollection<Session> Sessions { get; set; }
 
     }
 }

@@ -11,6 +11,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         [Required(ErrorMessage = "Identity card number is required")]
         public string RegNo { get; set; }
         public string FullName { get; set; }
+        //public string Department { get; set; }
         [EmailAddress]
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]

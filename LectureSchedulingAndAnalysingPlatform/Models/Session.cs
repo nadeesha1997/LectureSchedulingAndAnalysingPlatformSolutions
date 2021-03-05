@@ -14,6 +14,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public int Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public bool Permitted { get; set; }
 
         [ForeignKey("Subject")]
         public int? SubjectId { get; set; }
@@ -22,6 +23,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         [ForeignKey("Hall")]
         public int? HallId { get; set; }
         public Hall? Hall { get; set; }
+
+        [ForeignKey("User")]
+        public string? UserId { get; set; }
+        public User? User { get; set; }
 
         public virtual Reservation? Reservation { get; set; }
         public virtual Permission? Permission { get; set; }
