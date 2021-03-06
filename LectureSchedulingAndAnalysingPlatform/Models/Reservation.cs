@@ -16,17 +16,17 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public DateTime EndTime { get; set; }
         public bool Permitted { get; set; }
 
-        [ForeignKey("Reserver")]
-        public int? ReserverId { get; set; }
-        public Reserver? Reserver { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public User User { get; set; }
 
         [ForeignKey("Hall")]
         public int? HallId { get; set; }
         public Hall? Hall { get; set; }
 
-        [ForeignKey("Session")]
-        public int? SessionId { get; set; }
-        public Session? Session { get; set; }
+        //[ForeignKey("Session")]
+        //public int? SessionId { get; set; }
+        //public Session? Session { get; set; }
 
     }
 }

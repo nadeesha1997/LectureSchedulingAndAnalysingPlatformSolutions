@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    [Migration("20210303193312_multi")]
-    partial class multi
+    [Migration("20210305182841_rem")]
+    partial class rem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -216,9 +216,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int?>("ReserverId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SessionId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
@@ -231,10 +228,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasIndex("ReserverId")
                         .IsUnique()
                         .HasFilter("[ReserverId] IS NOT NULL");
-
-                    b.HasIndex("SessionId")
-                        .IsUnique()
-                        .HasFilter("[SessionId] IS NOT NULL");
 
                     b.ToTable("Reservations");
                 });
@@ -269,11 +262,17 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<int?>("HallId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Permitted")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("SubjectId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -282,6 +281,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasFilter("[HallId] IS NOT NULL");
 
                     b.HasIndex("SubjectId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sessions");
                 });
@@ -416,36 +417,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "17b6d1a7-5b8e-4407-b30f-75529c3778e6",
-                            ConcurrencyStamp = "6b26d1c5-561c-4c24-874d-10e520a029f4",
+                            Id = "89c74342-58af-40db-9b93-75ef425305e2",
+                            ConcurrencyStamp = "aeed7b82-44bb-449b-a957-ace017242968",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "a7767895-2e2d-4eba-90e9-222a7702f546",
-                            ConcurrencyStamp = "8cb296a9-c824-43c0-9897-826c5a991b35",
+                            Id = "4439b796-3653-4698-b033-c4557943d776",
+                            ConcurrencyStamp = "c0947c9d-e13b-4ab4-a9fd-d53b7797241f",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "356a571d-4ed2-4164-9960-7b6ba9d158c0",
-                            ConcurrencyStamp = "2dc5f7f3-f485-4d0f-bff7-44e51c4feca6",
+                            Id = "9da27523-e8ad-42ae-a61d-0a1736f11437",
+                            ConcurrencyStamp = "bcae1674-58d5-450d-a92a-0b3f67a2283c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "11909249-8e58-4379-8a66-bd6261ef261c",
-                            ConcurrencyStamp = "fb6ab1b8-effe-4e5e-8f5d-b99b2c41496f",
+                            Id = "aeb66c6a-16db-4d2f-a2ea-4d3fc513be44",
+                            ConcurrencyStamp = "ffde8e41-2852-4b67-93e3-e1d6542780c7",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "c2b77959-877a-438a-bce8-8ee0c6b06ab3",
-                            ConcurrencyStamp = "e4d00c04-30cd-4413-b8a4-f51874998b4c",
+                            Id = "4bf3dfc0-5d40-4fc0-a0b0-7d7076987df8",
+                            ConcurrencyStamp = "4f5cc7de-ffea-425c-bef5-f28a67adb9dd",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
@@ -509,10 +510,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "Reserver")
                         .WithOne("Reservation")
                         .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "ReserverId");
-
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Session", "Session")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "SessionId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reserver", b =>
@@ -531,6 +528,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Subject", "Subject")
                         .WithMany("Sessions")
                         .HasForeignKey("SubjectId");
+
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
+                        .WithMany("Sessions")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.SubjectUser", b =>

@@ -29,24 +29,24 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         }
 
         // GET: api/Reservations/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Reservation>> GetReservation(int id)
-        {
-            var reservation = await _context.Reservations
-                .Include(i => i.Reserver)
-                .Include(i=>i.Hall)
-                .Include(i=>i.Session)
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Reservation>> GetReservation(int id)
+        //{
+        //    var reservation = await _context.Reservations
+        //        .Include(i => i.Reserver)
+        //        .Include(i=>i.Hall)
+        //        .Include(i=>i.Session)
 
-                .Where(i => i.Id == id)
-                .FirstOrDefaultAsync();
+        //        .Where(i => i.Id == id)
+        //        .FirstOrDefaultAsync();
 
-            if (reservation == null)
-            {
-                return NotFound();
-            }
+        //    if (reservation == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return reservation;
-        }
+        //    return reservation;
+        //}
 
         // PUT: api/Reservations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    [Migration("20210217130342_Migrate")]
-    partial class Migrate
+    [Migration("20210305193002_data-seed")]
+    partial class dataseed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -213,14 +213,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<bool>("Permitted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ReserverId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SessionId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -228,13 +225,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .IsUnique()
                         .HasFilter("[HallId] IS NOT NULL");
 
-                    b.HasIndex("ReserverId")
-                        .IsUnique()
-                        .HasFilter("[ReserverId] IS NOT NULL");
-
-                    b.HasIndex("SessionId")
-                        .IsUnique()
-                        .HasFilter("[SessionId] IS NOT NULL");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
                 });
@@ -246,10 +237,15 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ReservationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
 
                     b.HasIndex("UserId");
 
@@ -263,17 +259,23 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("HallId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<bool>("Permitted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("SubjectId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -282,6 +284,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasFilter("[HallId] IS NOT NULL");
 
                     b.HasIndex("SubjectId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Sessions");
                 });
@@ -299,12 +303,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubjectUserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectUserId");
 
                     b.ToTable("Subjects");
                 });
@@ -316,9 +315,19 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectUser");
+                    b.HasIndex("SubjectId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SubjectUsers");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.User", b =>
@@ -365,6 +374,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfilePictureName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RegNo")
                         .HasColumnType("nvarchar(max)");
 
@@ -372,9 +384,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Semester")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectUserId")
                         .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -386,8 +395,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("SubjectUserId");
 
                     b.ToTable("Users");
                 });
@@ -413,36 +420,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a80fd1e1-0b64-4ef8-b971-c1e4e84f9c29",
-                            ConcurrencyStamp = "8f287ff5-45ed-4b60-80ab-d205031a7b0e",
+                            Id = "f8323b78-1d91-4d10-aac7-6fd0fefd3b72",
+                            ConcurrencyStamp = "9ff9f641-53ae-49d3-a190-065c467e83f9",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "0fc0f64a-fe36-412c-b5aa-31937e643767",
-                            ConcurrencyStamp = "a65a9f59-4187-4a04-aeb2-99226a595487",
+                            Id = "972dc48c-28a3-4a1f-9b21-05e2d84ec1f5",
+                            ConcurrencyStamp = "5057ce2d-ccf5-4294-adc6-8b10125716c9",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "04194912-8237-4502-be17-1fd57d1530a1",
-                            ConcurrencyStamp = "3df8a56f-7b94-4981-8920-1b7f54fd6cba",
+                            Id = "6655f50b-3f9a-4619-810c-fe53cfa15d26",
+                            ConcurrencyStamp = "55d8ff2d-e754-4f50-875b-ccc7f6bdcdc8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e7a86abd-fc20-4410-af19-5005c57bdaa4",
-                            ConcurrencyStamp = "b7f2c367-5807-4206-bcc5-1ba9a8f66f00",
+                            Id = "c142ef0b-2a79-4e5c-8e3d-51be2b34b150",
+                            ConcurrencyStamp = "37f108a9-bcaf-41d6-a725-95c6f7313e71",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "9fa5edea-8007-4df7-9cf0-74d2f937ea27",
-                            ConcurrencyStamp = "e13dfabc-629a-456a-8439-1fc82bcef616",
+                            Id = "890c4b4e-919b-429d-b817-ca4356e5d216",
+                            ConcurrencyStamp = "8b5f6049-2b2b-43ba-a44d-a8a4b38002c0",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
@@ -503,17 +510,17 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .WithOne("Reservation")
                         .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "HallId");
 
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "Reserver")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "ReserverId");
-
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Session", "Session")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "SessionId");
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reserver", b =>
                 {
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId");
+
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -528,13 +535,23 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Subject", "Subject")
                         .WithMany("Sessions")
                         .HasForeignKey("SubjectId");
+
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
+                        .WithMany("Sessions")
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Subject", b =>
+            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.SubjectUser", b =>
                 {
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.SubjectUser", null)
-                        .WithMany("Subjects")
-                        .HasForeignKey("SubjectUserId");
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Subject", "Subject")
+                        .WithMany("SubjectUsers")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
+                        .WithMany("SubjectUsers")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.User", b =>
@@ -542,10 +559,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Department", "Department")
                         .WithMany("Users")
                         .HasForeignKey("DepartmentId");
-
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.SubjectUser", "SubjectUser")
-                        .WithMany("Users")
-                        .HasForeignKey("SubjectUserId");
                 });
 #pragma warning restore 612, 618
         }

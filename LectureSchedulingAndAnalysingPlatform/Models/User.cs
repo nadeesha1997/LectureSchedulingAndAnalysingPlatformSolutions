@@ -21,6 +21,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         public string ProfilePictureName { get; set; }
+        [ForeignKey("Department")]
+        public int DepartmentId { get; set; }
         public Department? Department { get; set; }
         //public SubjectUser? SubjectUser { get; set; }
         public virtual ICollection<SubjectUser> SubjectUsers { get; set; }

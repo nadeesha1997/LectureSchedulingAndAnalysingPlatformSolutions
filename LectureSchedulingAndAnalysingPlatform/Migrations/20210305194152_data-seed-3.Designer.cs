@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210305194152_data-seed-3")]
+    partial class dataseed3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,36 +70,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Buildings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DepartmentId = 1,
-                            Name = "Electrical and Information Engineering Department Building"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DepartmentId = 2,
-                            Name = "Civil and Environment Engineering Engineering Department Building"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DepartmentId = 3,
-                            Name = "Mechanical and Manufacturing Engineering Department Building"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Administration Building"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Lecture Hall"
-                        });
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Department", b =>
@@ -116,32 +88,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "EIE",
-                            Name = "Electrical and Information Engineering"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "CEE",
-                            Name = "Civil and Environment Engineering"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Code = "MME",
-                            Name = "Mechanical and Manufacturing Engineering"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Code = "IS",
-                            Name = "Interdisciplinary Studies"
-                        });
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Hall", b =>
@@ -167,43 +113,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasIndex("PermissionTypeId");
 
                     b.ToTable("Halls");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BuildingId = 1,
-                            Name = "ELR",
-                            PermissionTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BuildingId = 1,
-                            Name = "EIE Computer Lab",
-                            PermissionTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BuildingId = 3,
-                            Name = "MLR",
-                            PermissionTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            BuildingId = 2,
-                            Name = "CLR",
-                            PermissionTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            BuildingId = 5,
-                            Name = "LT1",
-                            PermissionTypeId = 1
-                        });
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Lecturer", b =>
@@ -283,36 +192,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PermissionTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Ar = false,
-                            Hod = false,
-                            Name = "Lecture Hall Building"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Ar = false,
-                            Hod = true,
-                            Name = "Department Building"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Ar = true,
-                            Hod = false,
-                            Name = "Administration Building"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Ar = true,
-                            Hod = false,
-                            Name = "Auditorium"
-                        });
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reservation", b =>
@@ -494,7 +373,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -573,36 +452,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ca2e3960-7a10-4622-bfc8-e0f531a271de",
-                            ConcurrencyStamp = "3176bf58-b8f7-4278-87ef-b9e86c884619",
+                            Id = "0e257bbc-2783-4bad-b249-a5d196968f51",
+                            ConcurrencyStamp = "19b769bb-fed4-40e4-9ecb-dfd631461c7f",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "37f2dd58-7c8f-407a-84e1-92b1e4cab83c",
-                            ConcurrencyStamp = "9b938b4f-46f9-49d7-b731-ab358f3d8c40",
+                            Id = "f59d608f-8896-4597-ba00-5eb5b5946c49",
+                            ConcurrencyStamp = "661c0d60-a7c7-472c-a914-5122bd0e6cfc",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "db527aa0-a2df-445b-9128-a18d9057ca66",
-                            ConcurrencyStamp = "4099f1e0-14ce-446a-8b31-ec43907e83f1",
+                            Id = "9d2cfaa4-bd06-4622-9762-8f8f6e074030",
+                            ConcurrencyStamp = "f1cddd01-d698-4706-b0a9-e1a2b39bbba6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "076f1c11-eb7e-4765-87fc-fa469233c1fe",
-                            ConcurrencyStamp = "d0bd3cdb-485f-40a8-8aa1-e0632349693d",
+                            Id = "7aeaf1d9-06d6-4e09-95d6-8ae9e7adf597",
+                            ConcurrencyStamp = "741df160-abd1-4446-9f93-780310633e25",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "85993c77-4830-4706-b03f-d0421c61a099",
-                            ConcurrencyStamp = "586403fd-423d-43a5-adb6-df82419bf766",
+                            Id = "1b1da069-cde8-49f5-affc-90f0dcd4b0cc",
+                            ConcurrencyStamp = "224d3890-d9a8-4cf3-9bb2-f6f04692c5f2",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
@@ -711,9 +590,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Department", "Department")
                         .WithMany("Users")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentId");
                 });
 #pragma warning restore 612, 618
         }

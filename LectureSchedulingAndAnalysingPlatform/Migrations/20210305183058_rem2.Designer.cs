@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    [Migration("20210305124215_temp")]
-    partial class temp
+    [Migration("20210305183058_rem2")]
+    partial class rem2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -213,14 +213,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<bool>("Permitted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ReserverId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SessionId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -228,13 +225,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .IsUnique()
                         .HasFilter("[HallId] IS NOT NULL");
 
-                    b.HasIndex("ReserverId")
-                        .IsUnique()
-                        .HasFilter("[ReserverId] IS NOT NULL");
-
-                    b.HasIndex("SessionId")
-                        .IsUnique()
-                        .HasFilter("[SessionId] IS NOT NULL");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
                 });
@@ -246,10 +237,15 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("ReservationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
 
                     b.HasIndex("UserId");
 
@@ -424,36 +420,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0c6722ac-8e68-4cb8-83d6-a8f9ad5553f0",
-                            ConcurrencyStamp = "d0294e28-8aa9-4e61-b371-e9cb99d618b2",
+                            Id = "de923c10-7132-4b7f-9aeb-6d4771fde90e",
+                            ConcurrencyStamp = "99d1fefe-fa42-4648-a226-ae317d5dc9ee",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "69ca4e40-9066-4093-b439-80f9410b8221",
-                            ConcurrencyStamp = "a1df3b27-7b94-4c53-aa01-4ff53174b498",
+                            Id = "91b03e1a-c7f0-487d-b575-5c94d8d2418a",
+                            ConcurrencyStamp = "a509f090-e88c-4fc3-8534-6b57305438f3",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "329afd41-f0b5-48c4-940a-2c1228282092",
-                            ConcurrencyStamp = "24bdd163-c300-4696-b92a-57550b17eaa8",
+                            Id = "6619f372-2df5-4a97-b5d0-70a637c59fff",
+                            ConcurrencyStamp = "a62145ac-8f36-4c81-a5ce-60832e4a3f3f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2fd7c7a0-790c-43d9-ae60-b03b87557e75",
-                            ConcurrencyStamp = "af9edf9e-747f-409f-9766-2e0f6a1078ab",
+                            Id = "218c66fc-e496-4576-8567-0579796e6d0b",
+                            ConcurrencyStamp = "67068ecc-5bae-45db-a032-da1b09cfe353",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "c0522212-550b-4678-b519-14616686afa4",
-                            ConcurrencyStamp = "bc4be5d9-cdf2-4533-bdc8-09f3059a5b55",
+                            Id = "d70061c7-ddaa-4a5b-bef3-61e13d20b403",
+                            ConcurrencyStamp = "083800bb-040d-40b8-a553-35ae473b3985",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
@@ -514,17 +510,17 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .WithOne("Reservation")
                         .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "HallId");
 
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Reserver", "Reserver")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "ReserverId");
-
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Session", "Session")
-                        .WithOne("Reservation")
-                        .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "SessionId");
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Reserver", b =>
                 {
+                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId");
+
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

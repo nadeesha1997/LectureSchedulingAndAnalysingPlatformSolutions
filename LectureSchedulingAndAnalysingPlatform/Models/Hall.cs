@@ -13,6 +13,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         //[ForeignKey("Hall")]
         public int Id { get; set; }
         public string Name { get; set; }
+        //public bool HOD { get; set; }
+        //public bool AR { get; set; }
 
         [ForeignKey("Building")]
         public int? BuildingId { get; set; }
