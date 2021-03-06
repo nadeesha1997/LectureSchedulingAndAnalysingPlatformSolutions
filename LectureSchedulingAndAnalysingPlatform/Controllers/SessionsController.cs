@@ -47,34 +47,45 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return session;
         }
 
-        //[HttpGet("{para}/{para2}")]
-        //public async Task<ActionResult<Session>> GetSessionByPara(string para, string para2)
-        //{
-        //    if (para == "user")
-        //    {
-        //        var session = await _context.Sessions
-        //        .Include(i => i.Subject)
-        //        .Include(i => i.Hall)
-        //        .Where(i => i. == para2)
-        //        .FirstOrDefaultAsync();
-        //    }
-        //    var session = await _context.Sessions
-        //        .Include(i => i.Subject)
-        //        .Include(i => i.Hall)
-        //        .Where(i => i.Id == id)
-        //        .FirstOrDefaultAsync();
+        [HttpGet("{para}/{para2}")]
+        public async Task<ActionResult<IEnumerable<Session>>> GetSessionByPara(string para, string para2)
+        {
+            if (para == "date")
+            {
+                var session = await _context.Sessions
+               .Include(i => i.Subject)
+               .Include(i => i.Hall)
+               .Where(i => i.StartDateTime == Convert.ToDateTime(para2))
+               .ToListAsync();
 
-        //    if (session == null)
-        //    {
-        //        return NotFound();
-        //    }
+                if (session == null)
+                {
+                    return NotFound();
+                }
 
-        //    return session;
-        //}
-        // PUT: api/Approvals/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+                return session;
+            }
+            else
+            {
+                List<Session> sessions = await _context.Sessions
+                .Include(i => i.Subject)
+                .Include(i => i.Hall)
+                .Where(i => i.StartDateTime == Convert.ToDateTime(para2))
+                .Where(i => i.UserId == para)
+                .ToListAsync();
+
+                //if (sessions == null)
+                //{
+                //    return NotFound();
+                //}
+
+                return sessions;
+            }
+        }
+    // PUT: api/Approvals/5
+    // To protect from overposting attacks, enable the specific properties you want to bind to, for
+    // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+    [HttpPut("{id}")]
         public async Task<IActionResult> PutSession(int id, Session session)
         {
             if (id != session.Id)

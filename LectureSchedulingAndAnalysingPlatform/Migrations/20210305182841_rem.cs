@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
-    public partial class Migrate : Migration
+    public partial class rem : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,15 +80,17 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubjectUser",
+                name: "Subjects",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubjectUser", x => x.Id);
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,27 +109,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         name: "FK_Buildings_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Subjects",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    SubjectUserId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subjects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Subjects_SubjectUser_SubjectUserId",
-                        column: x => x.SubjectUserId,
-                        principalTable: "SubjectUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -154,8 +135,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     RegNo = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Semester = table.Column<int>(nullable: false),
-                    DepartmentId = table.Column<int>(nullable: true),
-                    SubjectUserId = table.Column<int>(nullable: true)
+                    ProfilePictureName = table.Column<string>(nullable: true),
+                    DepartmentId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -164,12 +145,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         name: "FK_Users_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Users_SubjectUser_SubjectUserId",
-                        column: x => x.SubjectUserId,
-                        principalTable: "SubjectUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -221,6 +196,32 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SubjectUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
+                    SubjectId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubjectUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubjectUsers_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SubjectUsers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sessions",
                 columns: table => new
                 {
@@ -228,8 +229,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartTime = table.Column<DateTime>(nullable: false),
                     EndTime = table.Column<DateTime>(nullable: false),
+                    Permitted = table.Column<bool>(nullable: false),
                     SubjectId = table.Column<int>(nullable: true),
-                    HallId = table.Column<int>(nullable: true)
+                    HallId = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -244,6 +247,42 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         name: "FK_Sessions_Subjects_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Sessions_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Date = table.Column<DateTime>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    Permitted = table.Column<bool>(nullable: false),
+                    ReserverId = table.Column<int>(nullable: true),
+                    HallId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Halls_HallId",
+                        column: x => x.HallId,
+                        principalTable: "Halls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Reservers_ReserverId",
+                        column: x => x.ReserverId,
+                        principalTable: "Reservers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -265,43 +304,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     table.PrimaryKey("PK_Permissions", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Permissions_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalTable: "Sessions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reservations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(nullable: false),
-                    StartTime = table.Column<DateTime>(nullable: false),
-                    EndTime = table.Column<DateTime>(nullable: false),
-                    Permitted = table.Column<bool>(nullable: false),
-                    ReserverId = table.Column<int>(nullable: true),
-                    HallId = table.Column<int>(nullable: true),
-                    SessionId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Reservations_Halls_HallId",
-                        column: x => x.HallId,
-                        principalTable: "Halls",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reservations_Reservers_ReserverId",
-                        column: x => x.ReserverId,
-                        principalTable: "Reservers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reservations_Sessions_SessionId",
                         column: x => x.SessionId,
                         principalTable: "Sessions",
                         principalColumn: "Id",
@@ -342,11 +344,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "a80fd1e1-0b64-4ef8-b971-c1e4e84f9c29", "8f287ff5-45ed-4b60-80ab-d205031a7b0e", "Teacher", "TEACHER" },
-                    { "0fc0f64a-fe36-412c-b5aa-31937e643767", "a65a9f59-4187-4a04-aeb2-99226a595487", "Student", "STUDENT" },
-                    { "04194912-8237-4502-be17-1fd57d1530a1", "3df8a56f-7b94-4981-8920-1b7f54fd6cba", "Admin", "ADMIN" },
-                    { "e7a86abd-fc20-4410-af19-5005c57bdaa4", "b7f2c367-5807-4206-bcc5-1ba9a8f66f00", "AR", "AR" },
-                    { "9fa5edea-8007-4df7-9cf0-74d2f937ea27", "e13dfabc-629a-456a-8439-1fc82bcef616", "HOD", "HOD" }
+                    { "89c74342-58af-40db-9b93-75ef425305e2", "aeed7b82-44bb-449b-a957-ace017242968", "Teacher", "TEACHER" },
+                    { "4439b796-3653-4698-b033-c4557943d776", "c0947c9d-e13b-4ab4-a9fd-d53b7797241f", "Student", "STUDENT" },
+                    { "9da27523-e8ad-42ae-a61d-0a1736f11437", "bcae1674-58d5-450d-a92a-0b3f67a2283c", "Admin", "ADMIN" },
+                    { "aeb66c6a-16db-4d2f-a2ea-4d3fc513be44", "ffde8e41-2852-4b67-93e3-e1d6542780c7", "AR", "AR" },
+                    { "4bf3dfc0-5d40-4fc0-a0b0-7d7076987df8", "4f5cc7de-ffea-425c-bef5-f28a67adb9dd", "HOD", "HOD" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -396,13 +398,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 filter: "[ReserverId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_SessionId",
-                table: "Reservations",
-                column: "SessionId",
-                unique: true,
-                filter: "[SessionId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reservers_UserId",
                 table: "Reservers",
                 column: "UserId");
@@ -420,19 +415,24 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subjects_SubjectUserId",
-                table: "Subjects",
-                column: "SubjectUserId");
+                name: "IX_Sessions_UserId",
+                table: "Sessions",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubjectUsers_SubjectId",
+                table: "SubjectUsers",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubjectUsers_UserId",
+                table: "SubjectUsers",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_DepartmentId",
                 table: "Users",
                 column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_SubjectUserId",
-                table: "Users",
-                column: "SubjectUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -453,6 +453,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 name: "Reservations");
 
             migrationBuilder.DropTable(
+                name: "SubjectUsers");
+
+            migrationBuilder.DropTable(
                 name: "Permissions");
 
             migrationBuilder.DropTable(
@@ -462,22 +465,19 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 name: "Sessions");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Halls");
 
             migrationBuilder.DropTable(
                 name: "Subjects");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Buildings");
 
             migrationBuilder.DropTable(
                 name: "PermissionTypes");
-
-            migrationBuilder.DropTable(
-                name: "SubjectUser");
 
             migrationBuilder.DropTable(
                 name: "Departments");

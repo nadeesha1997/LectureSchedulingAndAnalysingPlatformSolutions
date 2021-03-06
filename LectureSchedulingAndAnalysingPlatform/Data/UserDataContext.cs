@@ -19,6 +19,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new BuildingConfiguration());
+            modelBuilder.ApplyConfiguration(new HallConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionTypeConfiguration());
             modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
         }
 
