@@ -49,15 +49,38 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return subjectUser;
         }
 
+        [HttpGet("{para1}/{para2}")]
+        public async Task<ActionResult<IEnumerable<SubjectUser>>> GetSubjectByUser(string para1,string para2)
+        {
+            if (para1 == "user")
+            {
+                var subjectUser = await _context.SubjectUsers
+                .Include(i => i.User)
+                .Include(i => i.Subject)
+                .Where(i => i.UserId == para2)
+                .ToListAsync();
+
+                if (subjectUser == null)
+                {
+                    return NotFound();
+                }
+
+                return subjectUser;
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
         // PUT: api/Buildings/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutBuilding(int id, Building building)
+        //[httpput("{id}")]
+        //public async task<iactionresult> putbuilding(int id, building building)
         //{
-        //    if (id != building.Id)
+        //    if (id != building.id)
         //    {
-        //        return BadRequest();
+        //        return badrequest();
         //    }
 
         //    _context.Entry(building).State = EntityState.Modified;
