@@ -132,6 +132,24 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return subjectUser;
         }
 
+        [HttpDelete("{id}/{subject}")]
+        public async Task<ActionResult<SubjectUser>> DeleteSubjectUserBySubject(string id,int subject)
+        {
+            var subjectUser = await _context.SubjectUsers
+                .Where(i => i.UserId == id)
+                .Where(i => i.SubjectId == subject)
+                .FirstOrDefaultAsync();
+            if (subjectUser == null)
+            {
+                return NotFound();
+            }
+
+            _context.SubjectUsers.Remove(subjectUser);
+            await _context.SaveChangesAsync();
+
+            return subjectUser;
+        }
+
         private bool BuildingExists(int id)
         {
             return _context.Buildings.Any(e => e.Id == id);

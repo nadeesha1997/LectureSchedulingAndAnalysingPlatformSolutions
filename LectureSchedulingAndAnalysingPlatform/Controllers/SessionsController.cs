@@ -65,6 +65,21 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
 
                 return session;
             }
+            else if (para == "dateonly")
+            {
+                var session = await _context.Sessions
+               .Include(i => i.Subject)
+               .Include(i => i.Hall)
+               .Where(i => i.StartDateTime.Date == Convert.ToDateTime(para2).Date)
+               .ToListAsync();
+
+                if (session == null)
+                {
+                    return NotFound();
+                }
+
+                return session;
+            }
             else
             {
                 List<Session> sessions = await _context.Sessions

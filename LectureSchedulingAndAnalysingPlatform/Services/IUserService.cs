@@ -8,10 +8,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Services
 {
     public interface IUserService
     {
-        public List<User> GetAll();
-        public User Get(int id);
-        public void Add(User newBook);
-        public void Update(int id, User book);
-        public void Delete(int id);
+        public Task GetAll();
+        public Task Get(string id);
+        public Task Add(User newBook);
+        public Task Update(string id, User book);
+        public Task Delete(string id);
     }
 }

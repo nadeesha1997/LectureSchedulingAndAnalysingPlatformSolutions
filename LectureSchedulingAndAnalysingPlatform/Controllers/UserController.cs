@@ -50,6 +50,24 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return user;
         }
 
+        [HttpGet("{selector1}/{value1}/{selector2}/{value2}")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUserbyTwoParas(string selector1, int value1, string selector2, int value2)
+        {
+            if (selector1 == "department" && selector2 == "semester")
+            {
+                var Users= _context.Users
+                    .Include(i => i.Department)
+                    .Where(i => i.DepartmentId == value1)
+                    .Where(i => i.Semester == value2)
+                    .ToListAsync();
+                return await Users;
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         // PUT: api/Users/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
