@@ -18,6 +18,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         //public string EmpoyeeID { get; set; }
         public string FullName { get; set; }
         public int Semester { get; set; }
+        public string Role { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         public string ProfilePictureName { get; set; }
@@ -25,6 +26,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public int DepartmentId { get; set; }
         public Department? Department { get; set; }
         //public SubjectUser? SubjectUser { get; set; }
+        public virtual Hod Hod { get; set; }
         public virtual ICollection<SubjectUser> SubjectUsers { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
 

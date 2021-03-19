@@ -2,47 +2,103 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LectureSchedulingAndAnalysingPlatform.Data;
 using LectureSchedulingAndAnalysingPlatform.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LectureSchedulingAndAnalysingPlatform.Services
 {
     public class UserService:IUserService
     {
-        static List<User> Database = loadDB();
+        //static List<User> Database = loadDB();
 
-        public static List<User> loadDB()
+        //public static List<User> loadDB()
+        //{
+        //    List<User> temp = new List<User>();
+        //    temp.Add(new User {});
+        //    temp.Add(new User {});
+        //    return temp;
+        //}
+
+        //public List<User> GetAll()
+        //{
+        //    return Database;
+        //}
+
+        //public User Get(int id)
+        //{
+        //    return Database.Find(user => user.Semester == id);
+        //}
+
+        //public void Add(User newUser)
+        //{
+        //    Database.Add(newUser);
+        //}
+
+        //public void Update(int id, User user)
+        //{
+        //    Database.Remove(Database.Find(user => user.Semester == id));
+        //    user.Semester = id;
+        //    Database.Add(user);
+        //}
+
+        //public void Delete(int id)
+        //{
+        //    Database.Remove(Database.Find(user => user.Semester == id));
+        //}
+        private readonly UserDataContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public UserService(UserDataContext context, IWebHostEnvironment hostEnvironment)
         {
-            List<User> temp = new List<User>();
-            temp.Add(new User {});
-            temp.Add(new User {});
-            return temp;
+            _context = context;
+            this._hostEnvironment = hostEnvironment;
+        }
+        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        {
+            return await _context.Users.ToListAsync();
         }
 
-        public List<User> GetAll()
+        public async Task<ActionResult<User>> Get(string id)
         {
-            return Database;
+            var user = await _context.Users
+                .Include(i => i.Department)
+                //.Include(i=>i.SubjectUser)
+                .Where(i => i.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new NotImplementedException();
+            }
+
+            return user;
         }
 
-        public User Get(int id)
+        Task IUserService.Add(User newBook)
         {
-            return Database.Find(user => user.Semester == id);
+            throw new NotImplementedException();
         }
 
-        public void Add(User newUser)
+        Task IUserService.Update(string id, User book)
         {
-            Database.Add(newUser);
+            throw new NotImplementedException();
         }
 
-        public void Update(int id, User user)
+        Task IUserService.Delete(string id)
         {
-            Database.Remove(Database.Find(user => user.Semester == id));
-            user.Semester = id;
-            Database.Add(user);
+            throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        Task IUserService.GetAll()
         {
-            Database.Remove(Database.Find(user => user.Semester == id));
+            throw new NotImplementedException();
+        }
+
+        Task IUserService.Get(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

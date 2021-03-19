@@ -89,9 +89,11 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
                 var claims = GetClaims(user);
                 var tokenOptions = GenerateTokenOptions(signingCredentials, await claims);
                 var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                var role = await _userManager.GetRolesAsync(user);
                 ////return Ok(token);
                 return Ok(new
                 {
+                    Role=role,
                     UserDetails = user,
                     accessToken = token
                 });
