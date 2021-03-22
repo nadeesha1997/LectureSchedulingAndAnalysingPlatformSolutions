@@ -14,6 +14,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public bool Hod { get; set; }
         public bool Ar { get; set; }
         //public virtual Hall? Hall { get; set; }
-        public ICollection<Hall> Halls { get; set; }
+        //public ICollection<Hall> Halls { get; set; }
     }
 }
