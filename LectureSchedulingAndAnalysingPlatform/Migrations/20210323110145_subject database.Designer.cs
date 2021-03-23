@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210323110145_subject database")]
+    partial class subjectdatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -781,6 +783,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         },
                         new
                         {
+                            Id = 55,
+                            Code = "EE3207",
+                            Name = "Planning and Management for Electrical Engineers (TE)"
+                        },
+                        new
+                        {
                             Id = 56,
                             Code = "EE3108",
                             Name = "Electronic Project"
@@ -910,36 +918,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                             Id = 78,
                             Code = "EE7601",
                             Name = "Undergraduate Project"
-                        },
-                        new
-                        {
-                            Id = 85,
-                            Code = "EE7207",
-                            Name = "Computer Vision and Image Processing (TE)"
-                        },
-                        new
-                        {
-                            Id = 86,
-                            Code = "EE7208",
-                            Name = "Advanced Data Communication (TE)"
-                        },
-                        new
-                        {
-                            Id = 87,
-                            Code = "EE7209",
-                            Name = "Digital Signal Processing (TE)"
-                        },
-                        new
-                        {
-                            Id = 88,
-                            Code = "EE7210",
-                            Name = "Telecommunication Networks (TE)"
-                        },
-                        new
-                        {
-                            Id = 89,
-                            Code = "EE7211",
-                            Name = "Optical Fiber Communication (TE)"
                         },
                         new
                         {
@@ -1186,30 +1164,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                             Id = 144,
                             Code = "ME8302",
                             Name = "Industrial Fluid Dynamics"
-                        },
-                        new
-                        {
-                            Id = 145,
-                            Code = "ME8311",
-                            Name = "Aerospace Engineering (TE)"
-                        },
-                        new
-                        {
-                            Id = 146,
-                            Code = "ME8312",
-                            Name = "Energy Management (TE)"
-                        },
-                        new
-                        {
-                            Id = 147,
-                            Code = "EE8212",
-                            Name = "Biomedical Engineering (TE)"
-                        },
-                        new
-                        {
-                            Id = 148,
-                            Code = "ME8213",
-                            Name = "Individual Research Project (TE)"
                         },
                         new
                         {
@@ -1490,36 +1444,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8bdfb6a0-ad29-4907-9c7e-b608604a4612",
-                            ConcurrencyStamp = "8786d6ac-7359-4ef2-aa1f-50c47fe94c39",
+                            Id = "08830cda-d753-4220-8019-882a8fbc110c",
+                            ConcurrencyStamp = "91926380-d7c6-4e5e-abc6-fb0fb7378ad2",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "71f4fb01-1b52-4da6-a381-bdae94e4c59d",
-                            ConcurrencyStamp = "d493af51-7272-4932-b825-15db7cf540f3",
+                            Id = "465b57f8-998f-4eb7-b1d5-763905711126",
+                            ConcurrencyStamp = "752a2f6d-904e-4c36-bc01-0f4f9722d43f",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "f3b2c16f-ba61-41c7-8b15-2588ce447384",
-                            ConcurrencyStamp = "e7d6d372-a54d-4d80-b3e0-56035c55e48f",
+                            Id = "5bc04c03-b0c0-4f35-b2ea-f20876b1854a",
+                            ConcurrencyStamp = "c7356f0f-bde2-4077-b262-4ed54f5debe2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8ca0ac39-b4ff-44a4-baa0-2c128e09870f",
-                            ConcurrencyStamp = "fcd708f0-e366-45be-86ab-272a9a6ccbd7",
+                            Id = "06116ced-c22c-493e-bc8a-d369ec874e8f",
+                            ConcurrencyStamp = "9c5846be-898f-4709-a9c1-0dfae11403fe",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "7ec73e80-ece1-4d96-80c5-69c7c6b8254a",
-                            ConcurrencyStamp = "49f254f9-3387-4547-b8fe-e425f2866cbf",
+                            Id = "f7f26183-afcf-435d-9aec-97e5b3a8e517",
+                            ConcurrencyStamp = "280cdb43-ad52-4b8f-9110-f0e47166042b",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });

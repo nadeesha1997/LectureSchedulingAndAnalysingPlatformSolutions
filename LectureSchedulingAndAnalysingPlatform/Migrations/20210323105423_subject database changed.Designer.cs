@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210323105423_subject database changed")]
+    partial class subjectdatabasechanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -603,7 +605,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         {
                             Id = 13,
                             Code = "CE4305",
-                            Name = "Water and Wastewater Engineering"
+                            Name = "Water and Wastewater Engineering CE4305"
                         },
                         new
                         {
@@ -634,6 +636,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                             Id = 18,
                             Code = "CE5251",
                             Name = "Design of Timber and Masonry Structures (TE)"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Code = "CE5252",
+                            Name = "Graphical User Interface Programming (TE)"
                         },
                         new
                         {
@@ -670,6 +678,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                             Id = 28,
                             Code = "CE6106",
                             Name = "Surveying Work Camp"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Code = "CE6251",
+                            Name = "Building Services Engineering (TE)"
                         },
                         new
                         {
@@ -715,21 +729,15 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         },
                         new
                         {
-                            Id = 44,
-                            Code = "CE8252",
-                            Name = "Irrigation and Watershed Management (TE)"
+                            Id = 40,
+                            Code = "CE7251",
+                            Name = "Coastal Engineering – Application and Management (TE)"
                         },
                         new
                         {
-                            Id = 45,
-                            Code = "CE8253",
-                            Name = "Water Resource Planning and Management (TE)"
-                        },
-                        new
-                        {
-                            Id = 46,
-                            Code = "CE8254",
-                            Name = "Analysis and Design of Large Structures for Dynamic Loadings (TE)"
+                            Id = 41,
+                            Code = "CE7252",
+                            Name = "Ground Improvement Techniques (TE)"
                         },
                         new
                         {
@@ -778,6 +786,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                             Id = 54,
                             Code = "EE3205",
                             Name = "Signals and Systems"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Code = "EE3207",
+                            Name = "Planning and Management for Electrical Engineers (TE)"
                         },
                         new
                         {
@@ -859,6 +873,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         },
                         new
                         {
+                            Id = 69,
+                            Code = "EE5207",
+                            Name = "Internet Technologies (TE)"
+                        },
+                        new
+                        {
                             Id = 70,
                             Code = "EE5208",
                             Name = "Electronic Circuit Design (TE)"
@@ -913,33 +933,15 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         },
                         new
                         {
-                            Id = 85,
-                            Code = "EE7207",
-                            Name = "Computer Vision and Image Processing (TE)"
+                            Id = 79,
+                            Code = "EE7202",
+                            Name = "Power Electronic Applications (TE)"
                         },
                         new
                         {
-                            Id = 86,
-                            Code = "EE7208",
-                            Name = "Advanced Data Communication (TE)"
-                        },
-                        new
-                        {
-                            Id = 87,
-                            Code = "EE7209",
-                            Name = "Digital Signal Processing (TE)"
-                        },
-                        new
-                        {
-                            Id = 88,
-                            Code = "EE7210",
-                            Name = "Telecommunication Networks (TE)"
-                        },
-                        new
-                        {
-                            Id = 89,
-                            Code = "EE7211",
-                            Name = "Optical Fiber Communication (TE)"
+                            Id = 80,
+                            Code = "EE7203",
+                            Name = "Power System Analysis (TE)"
                         },
                         new
                         {
@@ -952,6 +954,18 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                             Id = 91,
                             Code = "EE8301",
                             Name = "High Voltage Engineering (TE)"
+                        },
+                        new
+                        {
+                            Id = 92,
+                            Code = "EE8202",
+                            Name = "Electrical Systems in Buildings (TE)"
+                        },
+                        new
+                        {
+                            Id = 93,
+                            Code = "EE8203",
+                            Name = "High Performance Computing (TE)"
                         },
                         new
                         {
@@ -1177,6 +1191,18 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                         },
                         new
                         {
+                            Id = 141,
+                            Code = "ME7313",
+                            Name = "Industrial Automation and Control (TE)"
+                        },
+                        new
+                        {
+                            Id = 142,
+                            Code = "ME7314",
+                            Name = "Polymer Technology (TE)"
+                        },
+                        new
+                        {
                             Id = 143,
                             Code = "ME8301",
                             Name = "Heat Transfer"
@@ -1186,30 +1212,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                             Id = 144,
                             Code = "ME8302",
                             Name = "Industrial Fluid Dynamics"
-                        },
-                        new
-                        {
-                            Id = 145,
-                            Code = "ME8311",
-                            Name = "Aerospace Engineering (TE)"
-                        },
-                        new
-                        {
-                            Id = 146,
-                            Code = "ME8312",
-                            Name = "Energy Management (TE)"
-                        },
-                        new
-                        {
-                            Id = 147,
-                            Code = "EE8212",
-                            Name = "Biomedical Engineering (TE)"
-                        },
-                        new
-                        {
-                            Id = 148,
-                            Code = "ME8213",
-                            Name = "Individual Research Project (TE)"
                         },
                         new
                         {
@@ -1490,36 +1492,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8bdfb6a0-ad29-4907-9c7e-b608604a4612",
-                            ConcurrencyStamp = "8786d6ac-7359-4ef2-aa1f-50c47fe94c39",
+                            Id = "884fb79e-ab29-41ff-932f-8eea69efed4f",
+                            ConcurrencyStamp = "300683e1-efdc-47a0-a0c1-8d2fc0ca2179",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "71f4fb01-1b52-4da6-a381-bdae94e4c59d",
-                            ConcurrencyStamp = "d493af51-7272-4932-b825-15db7cf540f3",
+                            Id = "3573d863-c80e-41ef-bff5-9dba96bf0596",
+                            ConcurrencyStamp = "b8d95484-75f1-4db7-8d46-8aee1617b398",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "f3b2c16f-ba61-41c7-8b15-2588ce447384",
-                            ConcurrencyStamp = "e7d6d372-a54d-4d80-b3e0-56035c55e48f",
+                            Id = "2c25405d-8504-4200-9052-b79456d7b0ce",
+                            ConcurrencyStamp = "061b98bc-89e3-44cb-ba26-408ee5f347fe",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8ca0ac39-b4ff-44a4-baa0-2c128e09870f",
-                            ConcurrencyStamp = "fcd708f0-e366-45be-86ab-272a9a6ccbd7",
+                            Id = "81a0e633-bd95-4008-af1a-1809f112b48c",
+                            ConcurrencyStamp = "cb89762f-7572-4844-a987-e41701ee9ed1",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "7ec73e80-ece1-4d96-80c5-69c7c6b8254a",
-                            ConcurrencyStamp = "49f254f9-3387-4547-b8fe-e425f2866cbf",
+                            Id = "04a40217-5aa5-40bb-9ef8-8d826fbc11b8",
+                            ConcurrencyStamp = "d2e95354-45d4-4487-b24f-d1bc0a2dedd2",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
