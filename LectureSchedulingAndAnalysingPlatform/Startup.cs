@@ -110,10 +110,11 @@ namespace LectureSchedulingAndAnalysingPlatform
             .AllowAnyMethod()
             .AllowAnyHeader());
 
-
+           
             app.UseHttpsRedirection();
 
             app.UseRouting();
+           
 
             app.UseAuthentication();
 

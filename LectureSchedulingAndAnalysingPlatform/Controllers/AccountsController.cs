@@ -54,8 +54,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "AR");
             return StatusCode(201);
         }
-        [HttpPost("register/teacher")]
-        public async Task<ActionResult> RegisterTeacher(UserRegistrationModel userModel)
+        [HttpPost("register/lecturer")]
+        public async Task<ActionResult> RegisterLecturer(UserRegistrationModel userModel)
         {
             var user = _mapper.Map<User>(userModel);
             var result = await _userManager.CreateAsync(user, userModel.Password);
@@ -63,7 +63,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             {
                 return Ok(result.Errors);
             }
-            await _userManager.AddToRoleAsync(user, "Teacher");
+            await _userManager.AddToRoleAsync(user, "Lecturer");
             return StatusCode(201);
         }
         [HttpPost("register/admin")]

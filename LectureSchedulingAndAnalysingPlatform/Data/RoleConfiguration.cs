@@ -15,8 +15,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
             builder.HasData(
             new IdentityRole
             {
-                Name = "Teacher",
-                NormalizedName = "TEACHER"
+                Name = "Lecturer",
+                NormalizedName = "LECTURER"
             },
             new IdentityRole
             {

@@ -9,7 +9,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
     public class UserRegistrationModel
     {
         [Required(ErrorMessage = "Identity card number is required")]
+        
         public string RegNo { get; set; }
+        public string Role { get; set; }
         public string FullName { get; set; }
         //public string Department { get; set; }
         [EmailAddress]

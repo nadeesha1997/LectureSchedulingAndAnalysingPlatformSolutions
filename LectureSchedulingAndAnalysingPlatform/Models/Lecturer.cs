@@ -15,5 +15,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public string DeptId { get; set; }
+       
+
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
     }
 }
