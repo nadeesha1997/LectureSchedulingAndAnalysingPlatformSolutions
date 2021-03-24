@@ -70,35 +70,35 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
                 Id = 1,
                 Name = "ELR",
                 BuildingId = 1,
-                PermissionTypeId=2
+                PermissionType="elecHOD"
             },
             new Hall
             {
                 Id = 2,
                 Name = "EIE Computer Lab",
                 BuildingId = 1,
-                PermissionTypeId = 2
+                PermissionType = "elecHOD"
             },
             new Hall
             {
                 Id = 3,
                 Name = "MLR",
                 BuildingId = 3,
-                PermissionTypeId = 2
+                PermissionType = "mechHOD"
             },
             new Hall
             {
                 Id = 4,
                 Name = "CLR",
                 BuildingId = 2,
-                PermissionTypeId = 2
+                PermissionType = "civilHOD"
             },
             new Hall
             {
                 Id = 5,
                 Name = "LT1",
                 BuildingId = 5,
-                PermissionTypeId = 1
+                PermissionType = null
             });
         }
     }

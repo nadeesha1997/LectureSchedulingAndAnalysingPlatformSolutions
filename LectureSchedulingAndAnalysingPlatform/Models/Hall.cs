@@ -15,14 +15,15 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public string Name { get; set; }
         //public bool HOD { get; set; }
         //public bool AR { get; set; }
+        public string PermissionType { get; set; }
 
         [ForeignKey("Building")]
         public int? BuildingId { get; set; }
         public Building? Building { get; set; }
 
-        [ForeignKey("PermissionType")]
-        public int? PermissionTypeId { get; set; }
-        public PermissionType? PermissionType { get; set; }
+        //[ForeignKey("PermissionType")]
+        //public int? PermissionTypeId { get; set; }
+        //public PermissionType? PermissionType { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual Reservation? Reservation { get; set; }
