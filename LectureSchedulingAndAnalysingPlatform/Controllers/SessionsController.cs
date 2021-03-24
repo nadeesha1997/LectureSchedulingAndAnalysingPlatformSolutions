@@ -97,10 +97,29 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
                 return sessions;
             }
         }
-    // PUT: api/Approvals/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to, for
-    // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-    [HttpPut("{id}")]
+        [HttpGet("{para}/{para2}/{para3}")]
+        public async Task<ActionResult<Session>> GetSessionByTime(string para, string para2,int para3)
+        {
+            var session = await _context.Sessions
+           .Include(i => i.Subject)
+           .Include(i => i.Hall)
+           .Where(i => i.StartDateTime <= Convert.ToDateTime(para))
+           .Where(i=>i.EndDateTime>=Convert.ToDateTime(para2))
+           .Where(i => i.HallId == para3)
+           .FirstOrDefaultAsync();
+
+                if (session == null)
+                {
+                    return NotFound();
+                }
+
+                return session;
+
+        }
+        // PUT: api/Approvals/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutSession(int id, Session session)
         {
             if (id != session.Id)
