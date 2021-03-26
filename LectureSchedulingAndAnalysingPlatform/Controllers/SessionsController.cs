@@ -153,6 +153,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
 
                 return session;
             }
+            else
+            {
+                return NotFound();
+            }
         }
         // PUT: api/Approvals/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
