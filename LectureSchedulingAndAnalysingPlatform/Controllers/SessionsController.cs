@@ -116,6 +116,44 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
                 return session;
 
         }
+        [HttpGet("{para}/{para2}/{para3}/{para4}")]
+        public async Task<ActionResult<IEnumerable<Session>>> GetSessionByPara(string para, string para2,string para3,int para4)
+        {
+            if (para == "date" && para3 == "hall")
+            {
+                var session = await _context.Sessions
+                .Include(i => i.Subject)
+                .Include(i => i.Hall)
+                .Where(i => i.StartDateTime.Date == Convert.ToDateTime(para2).Date)
+                //.Where(i => i.EndDateTime >= Convert.ToDateTime(para2))
+                .Where(i => i.HallId == para4)
+                .ToListAsync();
+
+                if (session == null)
+                {
+                    return NotFound();
+                }
+
+                return session;
+            }
+            else if (para == "any" && para3 == "hall")
+            {
+                var session = await _context.Sessions
+                .Include(i => i.Subject)
+                .Include(i => i.Hall)
+                //.Where(i => i.StartDateTime.Date == Convert.ToDateTime(para2).Date)
+                //.Where(i => i.EndDateTime >= Convert.ToDateTime(para2))
+                .Where(i => i.HallId == para4)
+                .ToListAsync();
+
+                if (session == null)
+                {
+                    return NotFound();
+                }
+
+                return session;
+            }
+        }
         // PUT: api/Approvals/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
