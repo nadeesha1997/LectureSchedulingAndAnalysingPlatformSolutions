@@ -47,5 +47,20 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
 
         }
+        [HttpPost("reserve")]
+        public async Task<IActionResult> SendReserveMail( ApprovalRequest request)
+        {
+            try
+            {
+                await mailService.SendApprovalEmailAsync(request);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

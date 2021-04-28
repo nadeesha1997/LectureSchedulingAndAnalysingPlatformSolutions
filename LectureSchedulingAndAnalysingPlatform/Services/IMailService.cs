@@ -10,5 +10,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Services
     {
         Task SendEmailAsync(MailRequest mailRequest);
         Task SendWelcomeEmailAsync(WelcomeRequest request);
+        Task SendApprovalEmailAsync(ApprovalRequest request);
     }
 }
