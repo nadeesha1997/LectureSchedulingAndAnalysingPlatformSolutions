@@ -15,5 +15,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         //public int Semester { get; set; }
         public ICollection<Session> Sessions { get; set; }
         public virtual ICollection<SubjectUser> SubjectUsers { get; set; }
+        public ICollection<OnlineSession> OnlineSessions { get; set; }
     }
 }
