@@ -65,42 +65,133 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
         public void Configure(EntityTypeBuilder<Hall> builder)
         {
             builder.HasData(
-            new Hall
-            {
-                Id = 1,
-                Name = "ELR",
-                BuildingId = 1,
-                PermissionType="elecHOD"
-            },
-            new Hall
-            {
-                Id = 2,
-                Name = "EIE Computer Lab",
-                BuildingId = 1,
-                PermissionType = "elecHOD"
-            },
-            new Hall
-            {
-                Id = 3,
-                Name = "MLR",
-                BuildingId = 3,
-                PermissionType = "mechHOD"
-            },
-            new Hall
-            {
-                Id = 4,
-                Name = "CLR",
-                BuildingId = 2,
-                PermissionType = "civilHOD"
-            },
-            new Hall
-            {
-                Id = 5,
-                Name = "LT1",
-                BuildingId = 5,
-                PermissionType = null
-            });
+           new Hall
+           {
+               Id = 1,
+               Name = "DO1-A",
+               BuildingId = 5,
+               PermissionType = "null"
+           },
+                                new Hall
+                                {
+                                    Id = 2,
+                                    Name = "DO1-B",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+
+
+                                new Hall
+                                {
+                                    Id = 3,
+                                    Name = " DO2-A ",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 4,
+                                    Name = " DO2-B",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 5,
+                                    Name = "LR1",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 6,
+                                    Name = "LR2",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+                                new Hall
+                                {
+                                    Id = 7,
+                                    Name = "LT1",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 8,
+                                    Name = "LT2",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 9,
+                                    Name = "NLH1",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+                                new Hall
+                                {
+                                    Id = 10,
+                                    Name = "NLH2",
+                                    BuildingId = 5,
+                                    PermissionType = "null"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 11,
+                                    Name = "IS-CC",
+                                    BuildingId = 4,
+                                    PermissionType = "isHOD"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 12,
+                                    Name = "ELEC-CC",
+                                    BuildingId = 1,
+                                    PermissionType = "elecHOD"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 13,
+                                    Name = "ELR",
+                                    BuildingId = 1,
+                                    PermissionType = " elecHOD "
+                                },
+
+                                new Hall
+                                {
+                                    Id = 14,
+                                    Name = "CLR",
+                                    BuildingId = 2,
+                                    PermissionType = "civilHOD"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 15,
+                                    Name = "MLR",
+                                    BuildingId = 3,
+                                    PermissionType = "mechHOD"
+                                },
+
+                                new Hall
+                                {
+                                    Id = 16,
+                                    Name = " IS-Seminor ",
+                                    BuildingId = 4,
+                                    PermissionType = "isHOD"
+                                });
         }
     }
 }
+
 

@@ -12,30 +12,29 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SessionsController : ControllerBase
+    public class OnlineSessionsController : ControllerBase
     {
         private readonly UserDataContext _context;
 
-        public SessionsController(UserDataContext context)
+        public OnlineSessionsController(UserDataContext context)
         {
             _context = context;
         }
 
         // GET: api/Approvals
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Session>>> GetSession()
+        public async Task<ActionResult<IEnumerable<OnlineSession>>> GetSession()
         {
 
-            return await _context.Sessions.ToListAsync();
+            return await _context.OnlineSessions.ToListAsync();
         }
 
         // GET: api/Approvals/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Session>> GetSession(int id)
+        public async Task<ActionResult<OnlineSession>> GetSession(int id)
         {
-            var session = await _context.Sessions
-                .Include(i=>i.Subject)
-                .Include(i=>i.Hall)
+            var session = await _context.OnlineSessions
+                .Include(i => i.Subject)
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 
@@ -48,14 +47,13 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         }
 
         [HttpGet("{para}/{para2}")]
-        public async Task<ActionResult<IEnumerable<Session>>> GetSessionByPara(string para, string para2)
+        public async Task<ActionResult<IEnumerable<OnlineSession>>> GetSessionByPara(string para, string para2)
         {
             if (para == "date")
             {
-                var session = await _context.Sessions
+                var session = await _context.OnlineSessions
                .Include(i => i.Subject)
-               .Include(i => i.Hall)
-               .Where(i => i.StartDateTime == Convert.ToDateTime(para2))
+               .Where(i => i.StartTime == Convert.ToDateTime(para2))
                .ToListAsync();
 
                 if (session == null)
@@ -67,10 +65,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
             else if (para == "dateonly")
             {
-                var session = await _context.Sessions
+                var session = await _context.OnlineSessions
                .Include(i => i.Subject)
-               .Include(i => i.Hall)
-               .Where(i => i.StartDateTime.Date == Convert.ToDateTime(para2).Date)
+               .Where(i => i.StartTime.Date == Convert.ToDateTime(para2).Date)
                .ToListAsync();
 
                 if (session == null)
@@ -82,10 +79,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
             else
             {
-                List<Session> sessions = await _context.Sessions
+                List<OnlineSession> sessions = await _context.OnlineSessions
                 .Include(i => i.Subject)
-                .Include(i => i.Hall)
-                .Where(i => i.StartDateTime == Convert.ToDateTime(para2))
+                .Where(i => i.StartTime == Convert.ToDateTime(para2))
                 .Where(i => i.UserId == para)
                 .ToListAsync();
 
@@ -98,52 +94,31 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
         }
         [HttpGet("{para}/{para2}/{para3}")]
-        public async Task<ActionResult<Session>> GetSessionByTime(string para, string para2,int para3)
+        public async Task<ActionResult<OnlineSession>> GetSessionByTime(string para, string para2, int para3)
         {
-            var session = await _context.Sessions
+            var session = await _context.OnlineSessions
            .Include(i => i.Subject)
-           .Include(i => i.Hall)
-           .Where(i => i.StartDateTime <= Convert.ToDateTime(para))
-           .Where(i=>i.EndDateTime>=Convert.ToDateTime(para2))
-           .Where(i => i.HallId == para3)
+           .Where(i => i.StartTime <= Convert.ToDateTime(para))
+           .Where(i => i.EndTime >= Convert.ToDateTime(para2))
            .FirstOrDefaultAsync();
 
-                if (session == null)
-                {
-                    return NotFound();
-                }
+            if (session == null)
+            {
+                return NotFound();
+            }
 
-                return session;
+            return session;
 
         }
         [HttpGet("{para}/{para2}/{para3}/{para4}")]
-        public async Task<ActionResult<IEnumerable<Session>>> GetSessionByPara(string para, string para2,string para3,int para4)
+        public async Task<ActionResult<IEnumerable<OnlineSession>>> GetSessionByPara(string para, string para2, string para3, int para4)
         {
             if (para == "date" && para3 == "hall")
             {
-                var session = await _context.Sessions
+                var session = await _context.OnlineSessions
                 .Include(i => i.Subject)
-                .Include(i => i.Hall)
-                .Where(i => i.StartDateTime.Date == Convert.ToDateTime(para2).Date)
+                .Where(i => i.StartTime.Date == Convert.ToDateTime(para2).Date)
                 //.Where(i => i.EndDateTime >= Convert.ToDateTime(para2))
-                .Where(i => i.HallId == para4)
-                .ToListAsync();
-
-                if (session == null)
-                {
-                    return NotFound();
-                }
-
-                return session;
-            }
-            else if (para == "any" && para3 == "hall")
-            {
-                var session = await _context.Sessions
-                .Include(i => i.Subject)
-                .Include(i => i.Hall)
-                //.Where(i => i.StartDateTime.Date == Convert.ToDateTime(para2).Date)
-                //.Where(i => i.EndDateTime >= Convert.ToDateTime(para2))
-                .Where(i => i.HallId == para4)
                 .ToListAsync();
 
                 if (session == null)
@@ -162,14 +137,14 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSession(int id, Session session)
+        public async Task<IActionResult> PutSession(int id, OnlineSession onlineSession)
         {
-            if (id != session.Id)
+            if (id != onlineSession.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(session).State = EntityState.Modified;
+            _context.Entry(onlineSession).State = EntityState.Modified;
 
             try
             {
@@ -194,25 +169,25 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Session>> PostSession(Session session)
+        public async Task<ActionResult<Session>> PostSession(OnlineSession onlineSession)
         {
-            _context.Sessions.Add(session);
+            _context.OnlineSessions.Add(onlineSession);
             await _context.SaveChangesAsync();
-            return RedirectToAction("GetSession", new { id = session.Id });
+            return RedirectToAction("GetSession", new { id = onlineSession.Id });
 
         }
 
         // DELETE: api/Approvals/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Session>> DeleteSession(int id)
+        public async Task<ActionResult<OnlineSession>> DeleteSession(int id)
         {
-            var session = await _context.Sessions.FindAsync(id);
+            var session = await _context.OnlineSessions.FindAsync(id);
             if (session == null)
             {
                 return NotFound();
             }
 
-            _context.Sessions.Remove(session);
+            _context.OnlineSessions.Remove(session);
             await _context.SaveChangesAsync();
 
             return session;
@@ -220,7 +195,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
 
         private bool SessionExists(int id)
         {
-            return _context.Sessions.Any(e => e.Id == id);
+            return _context.OnlineSessions.Any(e => e.Id == id);
         }
     }
 }

@@ -24,5 +24,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public string ConfirmPassword { get; set; }
         public int Semester { get; set; }
         public int DepartmentId { get; set; }
+        public string Role { get; set; }
     }
 }

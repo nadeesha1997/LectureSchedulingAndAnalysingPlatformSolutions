@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210322183054_subjects halls updated")]
+    partial class subjectshallsupdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,37 +333,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Lecturers");
-                });
-
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.OnlineSession", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("OnlineSessions");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Permission", b =>
@@ -1725,36 +1696,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "31bdbc56-8735-4271-b498-67daff815a32",
-                            ConcurrencyStamp = "5e7768f4-5a3d-45bc-8ed5-0f1ddd3b3ca8",
+                            Id = "5daf77bb-0386-470b-9ef1-6fcdf59d98a7",
+                            ConcurrencyStamp = "2b91cbe5-4b66-4cd6-ab0b-5820db5bced6",
                             Name = "Teacher",
                             NormalizedName = "TEACHER"
                         },
                         new
                         {
-                            Id = "7029ea08-288d-460c-9b4d-aa0ceffb2652",
-                            ConcurrencyStamp = "9ace28d9-fb25-43ef-ab51-39c1932dc2ee",
+                            Id = "ae2a85c1-9923-421e-a050-a8742ede488a",
+                            ConcurrencyStamp = "57f5d6c5-a7c8-4be7-8c63-58a4174b1f3c",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "20fce5be-c51f-4a32-ae16-b4f579df57c8",
-                            ConcurrencyStamp = "30b35b57-1329-46f7-8db7-226cfe2da89a",
+                            Id = "31274737-f131-447f-b3dd-10a83ecaeb58",
+                            ConcurrencyStamp = "16989de9-a1c1-413e-8e96-72ba0716e730",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "6a605635-e043-479e-bae3-3e40b88193f7",
-                            ConcurrencyStamp = "1d6d5655-6330-4802-8893-06c34e8eec96",
+                            Id = "0b807a0a-4e6d-4cc5-a722-cc562c80884d",
+                            ConcurrencyStamp = "b2885bb7-345e-4387-8d5f-0bdfe90b30a6",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "d10a1aba-c4a3-47af-a426-b1f1a57d6f76",
-                            ConcurrencyStamp = "c3a5f4b4-7bcb-4902-86c7-d598e573af04",
+                            Id = "f6ff08a7-1ecd-4545-b5b6-1746e82110fa",
+                            ConcurrencyStamp = "1ee6eb21-b6db-40dc-8b50-76fda55543e5",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
@@ -1809,17 +1780,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
                         .WithOne("Hod")
                         .HasForeignKey("LectureSchedulingAndAnalysingPlatform.Models.Hod", "UserId");
-                });
-
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.OnlineSession", b =>
-                {
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Subject", "Subject")
-                        .WithMany("OnlineSessions")
-                        .HasForeignKey("SubjectId");
-
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.User", "User")
-                        .WithMany("OnlineSessions")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Permission", b =>

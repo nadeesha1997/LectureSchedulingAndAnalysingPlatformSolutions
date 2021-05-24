@@ -41,5 +41,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
         public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<SubjectUser> SubjectUsers { get; set; }
         public DbSet<Hod> Hods { get; set; }
+        public DbSet<OnlineSession> OnlineSessions { get; set; }
     }
 }
