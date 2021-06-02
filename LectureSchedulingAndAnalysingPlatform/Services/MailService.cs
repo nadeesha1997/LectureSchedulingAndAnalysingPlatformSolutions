@@ -24,7 +24,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Services
             StreamReader str = new StreamReader(FilePath);
             string MailText = str.ReadToEnd();
             str.Close();
-            MailText = MailText.Replace("[hall]", request.Hall).Replace("[stime]", request.Stime).Replace("[etime]",request.Etime).Replace("[date]", request.Date);
+            MailText = MailText.Replace("[hall]", request.Hall).Replace("[stime]", request.Stime).Replace("[etime]",request.Etime).Replace("[date]", request.Date).Replace("[id]", request.SessionId);
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
             email.To.Add(MailboxAddress.Parse(request.ToEmail));

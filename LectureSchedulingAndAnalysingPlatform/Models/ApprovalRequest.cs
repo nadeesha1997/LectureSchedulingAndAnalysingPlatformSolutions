@@ -12,5 +12,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public string Stime { get; set; }
         public string Etime { get; set; }
         public string Date { get; set; }
+        public string SessionId { get; set; }
     }
 }
