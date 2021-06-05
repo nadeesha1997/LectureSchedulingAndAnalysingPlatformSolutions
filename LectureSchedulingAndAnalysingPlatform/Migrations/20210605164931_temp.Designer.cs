@@ -4,14 +4,16 @@ using LectureSchedulingAndAnalysingPlatform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LectureSchedulingAndAnalysingPlatform.Migrations
 {
     [DbContext(typeof(UserDataContext))]
-    partial class UserDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210605164931_temp")]
+    partial class temp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1646,7 +1648,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -1691,7 +1693,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Semester")
+                    b.Property<int>("Semester")
                         .HasColumnType("int");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -1728,36 +1730,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "89eb97da-c956-4e4a-abf3-f5258dcfb102",
-                            ConcurrencyStamp = "e8c3306e-8433-4201-b983-1d78604e3050",
+                            Id = "fa9e7e13-d31e-4ca2-9c8b-6e840cb04c9a",
+                            ConcurrencyStamp = "29a370b8-aced-4b6f-aefc-dd692111d8e3",
                             Name = "Lecturer",
                             NormalizedName = "LECTURER"
                         },
                         new
                         {
-                            Id = "b5a6d21d-3823-4e7b-9508-2d25da853f23",
-                            ConcurrencyStamp = "967117eb-2eea-42fe-bc7e-6704e322a7af",
+                            Id = "2f9531fb-1f19-4150-a61c-60b8067aa037",
+                            ConcurrencyStamp = "a4ad090f-dd6a-4c40-89c6-f23b2ca7ccc0",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "e90d5984-3e31-48d7-b2ec-082bf6d102b2",
-                            ConcurrencyStamp = "fb262c52-21b4-44dd-beee-de4751f8d1a9",
+                            Id = "85185519-3c59-4d4d-8138-2a9c324812bc",
+                            ConcurrencyStamp = "588e65da-2467-4d18-be7a-5cfacc896b28",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "15241908-e95f-485f-9fc4-ec3077ca6597",
-                            ConcurrencyStamp = "021829dd-7d07-4813-a855-503de49bb491",
+                            Id = "456afad4-ff34-483a-bb82-f3d57897439f",
+                            ConcurrencyStamp = "8ebc3afb-8cf3-493f-9b54-dacaf49d08b1",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "f50692f0-4009-403b-85b5-0699c8e72a6d",
-                            ConcurrencyStamp = "d2464d4a-8bdf-4bd7-9f6a-57041aebb685",
+                            Id = "8b681772-23af-4b7e-93ba-095a73cf8f2d",
+                            ConcurrencyStamp = "893ee647-8505-44a6-aa74-6b3be8ab47c4",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
@@ -1886,7 +1888,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                 {
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Department", "Department")
                         .WithMany("Users")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -17,13 +17,13 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         //public string StudentID { get; set; }
         //public string EmpoyeeID { get; set; }
         public string FullName { get; set; }
-        public int Semester { get; set; }
+        public int? Semester { get; set; }
         public string Role { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
         public string ProfilePictureName { get; set; }
         [ForeignKey("Department")]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public Department? Department { get; set; }
         //public SubjectUser? SubjectUser { get; set; }
         public virtual Hod Hod { get; set; }
