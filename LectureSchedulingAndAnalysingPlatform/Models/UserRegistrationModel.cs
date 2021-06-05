@@ -22,8 +22,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        public int Semester { get; set; }
-        public int DepartmentId { get; set; }
+        public int? Semester { get; set; }
+        public int? DepartmentId { get; set; }
         //public string Role { get; set; }
     }
 }
