@@ -24,8 +24,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
             modelBuilder.ApplyConfiguration(new BuildingConfiguration());
             modelBuilder.ApplyConfiguration(new HallConfiguration());
             modelBuilder.ApplyConfiguration(new PermissionTypeConfiguration());
-            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
-        }
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });        }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Approval> A { get; set; }
