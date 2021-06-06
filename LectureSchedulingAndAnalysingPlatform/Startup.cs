@@ -113,6 +113,9 @@ namespace LectureSchedulingAndAnalysingPlatform
            
             app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
            
 
@@ -123,6 +126,7 @@ namespace LectureSchedulingAndAnalysingPlatform
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

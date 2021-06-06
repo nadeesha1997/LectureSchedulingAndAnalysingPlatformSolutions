@@ -10,6 +10,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
     {
         public int Id { get; set; }
         public string Link { get; set; }
+        public string MeetingId { get; set; }
+        public string Password { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         [ForeignKey("User")]

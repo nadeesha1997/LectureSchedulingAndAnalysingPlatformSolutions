@@ -349,6 +349,12 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MeetingId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
@@ -1728,36 +1734,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "89eb97da-c956-4e4a-abf3-f5258dcfb102",
-                            ConcurrencyStamp = "e8c3306e-8433-4201-b983-1d78604e3050",
+                            Id = "eaf34864-872a-4aa1-973b-712f5877345f",
+                            ConcurrencyStamp = "ef1c7a41-6689-430d-8c9d-b4a811a0edf2",
                             Name = "Lecturer",
                             NormalizedName = "LECTURER"
                         },
                         new
                         {
-                            Id = "b5a6d21d-3823-4e7b-9508-2d25da853f23",
-                            ConcurrencyStamp = "967117eb-2eea-42fe-bc7e-6704e322a7af",
+                            Id = "a94352dd-7cd9-40b5-ad25-337106e86d74",
+                            ConcurrencyStamp = "71a1b94c-34f4-4b4c-8e97-8ea63e8a8991",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "e90d5984-3e31-48d7-b2ec-082bf6d102b2",
-                            ConcurrencyStamp = "fb262c52-21b4-44dd-beee-de4751f8d1a9",
+                            Id = "f37a2294-3b76-4cfe-ae4b-adbd44879995",
+                            ConcurrencyStamp = "79633623-51c6-4faf-abb7-5710c3a2c2dc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "15241908-e95f-485f-9fc4-ec3077ca6597",
-                            ConcurrencyStamp = "021829dd-7d07-4813-a855-503de49bb491",
+                            Id = "ea5cefaa-b020-41cd-b2de-391c8c951790",
+                            ConcurrencyStamp = "4ef35f9b-80c9-44ab-9e5f-265d4ae564c9",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "f50692f0-4009-403b-85b5-0699c8e72a6d",
-                            ConcurrencyStamp = "d2464d4a-8bdf-4bd7-9f6a-57041aebb685",
+                            Id = "64337396-4414-45de-93ed-318dda6cffd5",
+                            ConcurrencyStamp = "1845ed43-99aa-4466-9c13-72680d724cc0",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
