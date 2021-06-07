@@ -33,8 +33,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         public async Task<ActionResult<Hod>> GetHod(int id)
         {
             var building = await _context.Hods
-                .Include(i => i.User)
-                .Include(i=>i.Department)
+                //.Include(i => i.User)
+                //.Include(i=>i.Department)
                 .Where(i => i.Id == id)
                 .FirstOrDefaultAsync();
 

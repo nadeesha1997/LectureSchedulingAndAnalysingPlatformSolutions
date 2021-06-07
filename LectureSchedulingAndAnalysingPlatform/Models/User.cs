@@ -26,7 +26,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public int? DepartmentId { get; set; }
         public Department? Department { get; set; }
         //public SubjectUser? SubjectUser { get; set; }
-        public virtual Hod Hod { get; set; }
         public virtual ICollection<SubjectUser> SubjectUsers { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual ICollection<OnlineSession> OnlineSessions { get; set; }

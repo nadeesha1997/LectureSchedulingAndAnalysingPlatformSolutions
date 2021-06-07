@@ -23,21 +23,14 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
             modelBuilder.ApplyConfiguration(new BuildingConfiguration());
             modelBuilder.ApplyConfiguration(new HallConfiguration());
-            modelBuilder.ApplyConfiguration(new PermissionTypeConfiguration());
             modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });        }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Approval> A { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Hall> Halls { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
-        public DbSet<PermissionType> PermissionTypes { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Reserver> Reservers { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Lecturer> Lecturers { get; set; }
         public DbSet<SubjectUser> SubjectUsers { get; set; }
         public DbSet<Hod> Hods { get; set; }
         public DbSet<OnlineSession> OnlineSessions { get; set; }

@@ -29,6 +29,5 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public User? User { get; set; }
 
         //public virtual Reservation? Reservation { get; set; }
-        public virtual Permission? Permission { get; set; }
     }
 }
