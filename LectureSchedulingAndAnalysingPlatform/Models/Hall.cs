@@ -26,6 +26,5 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         //public PermissionType? PermissionType { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; }
-        public virtual Reservation? Reservation { get; set; }
     }
 }

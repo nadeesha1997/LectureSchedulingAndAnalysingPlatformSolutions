@@ -9,11 +9,9 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
     public class Hod
     {
         public int Id { get; set; }
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        public User User { get; set; }
-        [ForeignKey("Department")]
-        public int DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public string ElectricalMail { get; set; }
+        public string CivilMail { get; set; }
+        public string MechanicalMail { get; set; }
+        public string ArMail { get; set; }
     }
 }
