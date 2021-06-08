@@ -13,5 +13,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Models
         public string CivilMail { get; set; }
         public string MechanicalMail { get; set; }
         public string ArMail { get; set; }
+        public string AdminMail { get; set; }
     }
 }
