@@ -19,7 +19,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
                 ElectricalMail="nadeeshamadhushan9@gmail.com",
                 CivilMail= "nadeeshamadhushan9@gmail.com",
                 MechanicalMail= "nadeeshamadhushan9@gmail.com",
-                ArMail= "nadeeshamadhushan9@gmail.com"
+                ArMail= "nadeeshamadhushan9@gmail.com",
+                AdminMail="nadeeshamadhushan9@gmail.com"
             });
         }
     }
