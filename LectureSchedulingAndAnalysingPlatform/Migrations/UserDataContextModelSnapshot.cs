@@ -79,15 +79,10 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("HodId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HodId");
 
                     b.ToTable("Departments");
 
@@ -277,6 +272,16 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hods");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ArMail = "nadeeshamadhushan9@gmail.com",
+                            CivilMail = "nadeeshamadhushan9@gmail.com",
+                            ElectricalMail = "nadeeshamadhushan9@gmail.com",
+                            MechanicalMail = "nadeeshamadhushan9@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.OnlineSession", b =>
@@ -1537,36 +1542,36 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "60276952-68a7-4110-a1ae-a132296ccb16",
-                            ConcurrencyStamp = "3a83e9c8-7747-40c5-9d73-eb4b0626e13a",
+                            Id = "03eb2903-c076-4133-840d-eb35034f2469",
+                            ConcurrencyStamp = "a0b6bda7-abc9-4e2b-b8d6-513fe5ff2de5",
                             Name = "Lecturer",
                             NormalizedName = "LECTURER"
                         },
                         new
                         {
-                            Id = "c498f781-a827-4561-8601-c7d7f4e8930a",
-                            ConcurrencyStamp = "683dbdcf-3af8-4210-99ac-cf98313d7bfe",
+                            Id = "894273ef-63b8-4821-a7e2-06fc63a90f8e",
+                            ConcurrencyStamp = "2aebb428-0254-4e30-92a0-135b34cde193",
                             Name = "Student",
                             NormalizedName = "STUDENT"
                         },
                         new
                         {
-                            Id = "8cca3dbf-9c69-44fe-8292-c33437d2ec8c",
-                            ConcurrencyStamp = "4df48f18-f959-4b54-a91f-a1e1d14041f1",
+                            Id = "68545bd7-abb8-4304-ac10-622193c29145",
+                            ConcurrencyStamp = "d96d09f4-d6fd-4443-a4ab-f36f9a4611f7",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "19ff2918-e4e1-4948-bca3-8803302b66cd",
-                            ConcurrencyStamp = "bbeee5bf-f141-43bd-8041-5ddf0eaf4fd2",
+                            Id = "c44e46c1-02ee-4124-99bc-7aa702842de7",
+                            ConcurrencyStamp = "cf30edc3-2310-4247-b2e7-36eedb421399",
                             Name = "AR",
                             NormalizedName = "AR"
                         },
                         new
                         {
-                            Id = "16268820-1a40-4990-b1ad-69c3863f40a4",
-                            ConcurrencyStamp = "7f0cfdbf-ba54-499a-a66d-3545a0a49229",
+                            Id = "2158f6d7-f644-4487-8b6e-cf78139b65cf",
+                            ConcurrencyStamp = "27b04072-a79e-481b-a832-8f12bdaa35fd",
                             Name = "HOD",
                             NormalizedName = "HOD"
                         });
@@ -1590,13 +1595,6 @@ namespace LectureSchedulingAndAnalysingPlatform.Migrations
                     b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Department", "Department")
                         .WithMany("Buildings")
                         .HasForeignKey("DepartmentId");
-                });
-
-            modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Department", b =>
-                {
-                    b.HasOne("LectureSchedulingAndAnalysingPlatform.Models.Hod", "Hod")
-                        .WithMany()
-                        .HasForeignKey("HodId");
                 });
 
             modelBuilder.Entity("LectureSchedulingAndAnalysingPlatform.Models.Hall", b =>

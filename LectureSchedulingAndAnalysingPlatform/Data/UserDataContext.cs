@@ -23,6 +23,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
             modelBuilder.ApplyConfiguration(new BuildingConfiguration());
             modelBuilder.ApplyConfiguration(new HallConfiguration());
+            modelBuilder.ApplyConfiguration(new HodConfiguration());
             modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });        }
 
         public DbSet<User> Users { get; set; }
