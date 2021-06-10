@@ -1,5 +1,6 @@
 ﻿using LectureSchedulingAndAnalysingPlatform.Models;
 using LectureSchedulingAndAnalysingPlatform.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MailController : ControllerBase
@@ -47,6 +49,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             }
 
         }
+        [Authorize(Roles ="Admin,Lecturer")]
         [HttpPost("reserve")]
         public async Task<IActionResult> SendReserveMail( ApprovalRequest request)
         {

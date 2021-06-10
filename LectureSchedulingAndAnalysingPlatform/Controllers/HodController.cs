@@ -1,5 +1,6 @@
 ﻿using LectureSchedulingAndAnalysingPlatform.Data;
 using LectureSchedulingAndAnalysingPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class HodController : ControllerBase
@@ -49,6 +51,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // PUT: api/Buildings/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles ="Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHod(int id, Hod hod)
         {
@@ -81,6 +84,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // POST: api/Buildings
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<ActionResult<Hod>> PostHod(Hod hod)
         {
@@ -91,6 +95,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         }
 
         // DELETE: api/Buildings/5
+        [Authorize(Roles ="Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Hod>> DeleteHod(int id)
         {

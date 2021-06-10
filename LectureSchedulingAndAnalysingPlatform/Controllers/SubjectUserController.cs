@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LectureSchedulingAndAnalysingPlatform.Data;
 using LectureSchedulingAndAnalysingPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SubjectUserController : ControllerBase

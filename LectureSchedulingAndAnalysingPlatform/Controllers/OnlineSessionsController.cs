@@ -1,5 +1,6 @@
 ﻿using LectureSchedulingAndAnalysingPlatform.Data;
 using LectureSchedulingAndAnalysingPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OnlineSessionsController : ControllerBase
@@ -136,6 +138,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // PUT: api/Approvals/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles ="Admin,Lecturer,AR")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSession(int id, OnlineSession onlineSession)
         {
@@ -168,6 +171,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // POST: api/Approvals
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles ="Admin,Lecturer")]
         [HttpPost]
         public async Task<ActionResult<Session>> PostSession(OnlineSession onlineSession)
         {
@@ -178,6 +182,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         }
 
         // DELETE: api/Approvals/5
+        [Authorize(Roles ="Admin,Lecturer")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<OnlineSession>> DeleteSession(int id)
         {

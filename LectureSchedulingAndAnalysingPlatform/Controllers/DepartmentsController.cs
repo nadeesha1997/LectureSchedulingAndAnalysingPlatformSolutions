@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LectureSchedulingAndAnalysingPlatform.Data;
 using LectureSchedulingAndAnalysingPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : ControllerBase
@@ -45,6 +47,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // PUT: api/Departments/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles ="Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDepartment(int id, Department department)
         {
@@ -77,6 +80,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         // POST: api/Departments
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
@@ -87,6 +91,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
         }
 
         // DELETE: api/Departments/5
+        [Authorize(Roles ="Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Department>> DeleteDepartment(int id)
         {

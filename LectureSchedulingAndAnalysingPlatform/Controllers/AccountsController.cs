@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LectureSchedulingAndAnalysingPlatform.Data;
 using LectureSchedulingAndAnalysingPlatform.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace LectureSchedulingAndAnalysingPlatform.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountsController : ControllerBase
@@ -30,6 +32,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             _userManager = userManager;
             _jwtSettings = configuration.GetSection("JwtSettings");
         }
+        [AllowAnonymous]
         [HttpPost("register/student")]
         public async Task<ActionResult> RegisterStudent(UserRegistrationModel userModel)
         {
@@ -42,6 +45,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "Student");
             return StatusCode(201);
         }
+        [Authorize(Roles ="Admin")]
         [HttpPost("register/ar")]
         public async Task<ActionResult> RegisterAR(UserRegistrationModel userModel)
         {
@@ -54,6 +58,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "AR");
             return StatusCode(201);
         }
+        [AllowAnonymous]
         [HttpPost("register/lecturer")]
         public async Task<ActionResult> RegisterLecturer(UserRegistrationModel userModel)
         {
@@ -66,6 +71,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "Lecturer");
             return StatusCode(201);
         }
+        [Authorize(Roles ="Admin")]
         [HttpPost("register/admin")]
         public async Task<ActionResult> RegisterAdmin(UserRegistrationModel userModel)
         {
@@ -79,6 +85,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             return StatusCode(201);
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginModel userModel)
         {

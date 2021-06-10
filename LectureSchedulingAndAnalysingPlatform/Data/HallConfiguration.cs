@@ -186,7 +186,7 @@ namespace LectureSchedulingAndAnalysingPlatform.Data
             new Hall
             {
                 Id = 16,
-                Name = " IS-Seminor ",
+                Name = " IS-Seminar ",
                 BuildingId = 4,
                 PermissionType = "isHOD"
             });
