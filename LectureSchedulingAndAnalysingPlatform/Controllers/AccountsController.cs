@@ -71,7 +71,8 @@ namespace LectureSchedulingAndAnalysingPlatform.Controllers
             await _userManager.AddToRoleAsync(user, "Lecturer");
             return StatusCode(201);
         }
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
+        [AllowAnonymous]
         [HttpPost("register/admin")]
         public async Task<ActionResult> RegisterAdmin(UserRegistrationModel userModel)
         {
